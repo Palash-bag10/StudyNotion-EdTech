@@ -19,22 +19,20 @@ const ForgotPassword = () => {
 
   return (
 
-    // PENDING: STYLLING
-
-    <div className='text-white'>
+    <div className='text-white grid min-h-[calc(100vh-3.5rem)] place-items-center'>
       {
         loading 
         ? ( <div className='spinner'></div> ) 
         : (
-            <div>
-                <h3>
+            <div className=' max-w-[500px] p-4 lg:p-8'>
+                <h3 className=' text-3xl font-semibold text-richblack-5'>
                     {
                         !emailSent 
                         ? "Reset your password"
                         : "Check email"
                     }
                 </h3>
-                <p>
+                <p className=' text-lg font-normal text-richblack-100 mt-3'>
                     {
                         !emailSent 
                         ? "Have no fear. We’ll email you instructions to reset your password. If you dont have access to your email we can try account recovery"
@@ -44,39 +42,43 @@ const ForgotPassword = () => {
                 <form onSubmit={handleOnSubmit}>
                     {
                         !emailSent && (
-                            <label>
-                                <p>Email Address <sup>*</sup></p>
+                            <label className=' w-full'>
+                                <p
+                                 className=' text-sm font-normal text-richblue-5 mb-1 mt-9'>Email Address <sup className=' text-pink-200'>*</sup></p>
                                 <input 
                                 type='email'
                                 name='email'
                                 value={email}
                                 placeholder='Enter Your Email'
                                 onChange={(e) => setEmail(e.target.value)}
-                                className=' text-black'
+                                className=' w-full mb-9 form-style'
                                 />
                             </label>
                         )
                     }
 
-                    <button type='submit'>
+                    <button
+                     type='submit'
+                     className=' w-full bg-yellow-50 rounded-[8px] p-3 text-richblack-900 font-medium'
+                     >
                         {
                             !emailSent
                             ? "Reset Password"
                             : "Resend email"
                         }
                     </button>
-
                 </form>
-                <div>
+
+                <div className=' flex items-center justify-between p-3'>
                     <Link to="/login">
-                        <BsArrowLeftShort/>
-                        <p>Back to Login</p>
+                        <p className=' flex items-center gap-x-2 text-richblack-5'>
+                            <BsArrowLeftShort size={30}/>
+                            Back to Login
+                        </p>
                     </Link>
                 </div>
-
             </div>
-        )
-      }
+        )}
     </div>
   )
 }
