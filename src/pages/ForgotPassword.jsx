@@ -51,7 +51,7 @@ const ForgotPassword = () => {
                                 value={email}
                                 placeholder='Enter Your Email'
                                 onChange={(e) => setEmail(e.target.value)}
-                                className=' w-full mb-9 form-style'
+                                className=' w-full form-style'
                                 />
                             </label>
                         )
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
 
                     <button
                      type='submit'
-                     className=' w-full bg-yellow-50 rounded-[8px] p-3 text-richblack-900 font-medium'
+                     className=' w-full bg-yellow-50 rounded-[8px] p-3 text-richblack-900 font-medium mt-9'
                      >
                         {
                             !emailSent
