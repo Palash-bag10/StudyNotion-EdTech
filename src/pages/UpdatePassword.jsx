@@ -37,25 +37,28 @@ const UpdatePassword = () => {
     } 
 
   return (
-    <div>
+    <div className=' text-pure-greys-300 grid min-h-[calc(100vh-3.5rem)] place-items-center'>
       {
         loading ? ( <div className='spinner'></div> )
         : (
-            <div className=' text-white'>
-                <h3>Choose new password</h3>
-                <p>Almost done. Enter your new password and youre all set.</p> 
+            <div className=' max-w-[500px] p-4 lg:p-8 '>
+                <h3 className=' text-3xl font-semibold text-richblack-5'>Choose new password</h3>
+                <p className=' text-lg font-normal text-richblack-100 mt-3'>Almost done. Enter your new password and youre all set.</p> 
                 <form onSubmit={handleOnSubmit}>
-                    <label>
-                        <p>New Password <sup>*</sup></p>
+                    <label className='relative'>
+                        <p className=' mb-2 text-sm font-normal text-richblack-5 mt-6'>New Password <sup className=' text-pink-200'>*</sup></p>
                         <input
                             required 
                             type={showPassword ? "text" : "password"}
                             name='password'
                             value={password}
                             onChange={handleOnChange}
-                            className='text-black'
+                            className=' w-full !pr-10 form-style'
                         />
-                        <span onClick={() => setShowPassword((prev) => !prev)}>
+                        <span 
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        className=' absolute cursor-pointer top-[38px] right-3 z-[10]'
+                        >
                             {
                                 showPassword 
                                 ? <AiOutlineEyeInvisible fontSize={24}/> 
@@ -64,17 +67,20 @@ const UpdatePassword = () => {
                         </span> 
                     </label>
 
-                    <label>
-                        <p>Confirm New Password <sup>*</sup></p>
+                    <label className=' mt-5 block relative'>
+                        <p className=' mb-2 text-sm font-normal text-richblack-5'>Confirm New Password <sup className=' text-pink-200'>*</sup></p>
                         <input
                             required 
                             type={showConfirmPassword ? "text" : "password"}
                             name='confirmPassword'
                             value={confirmPassword}
                             onChange={handleOnChange}
-                            className='text-black'
+                            className='w-full !pr-10 form-style mb-6'
                         />
-                        <span onClick={() => setShowConfirmPassword((prev) => !prev)}>
+                        <span 
+                        onClick={() => setShowConfirmPassword((prev) => !prev)}
+                        className=' absolute cursor-pointer top-[38px] right-3 z-[10]'
+                        >
                             {
                                 showConfirmPassword 
                                 ? <AiOutlineEyeInvisible fontSize={24}/> 
@@ -83,15 +89,20 @@ const UpdatePassword = () => {
                         </span> 
                     </label>
 
-                    <button type='submit'>
+                    <button
+                     type='submit'
+                     className=' w-full bg-yellow-50 p-3 rounded-[8px] font-medium text-richblack-900 '
+                     >
                         Reset Password
                     </button>
                 </form>
 
-                <div>
+                <div className=' mt-3 flex items-center justify-between'>
                     <Link to="/login">
-                        <BsArrowLeftShort/>
-                        <p>Back to Login</p>
+                        <p className=' flex items-center gap-x-2 text-richblack-5 p-3'>
+                            <BsArrowLeftShort/>
+                            Back to Login
+                        </p>
                     </Link>
                 </div>
             </div>
