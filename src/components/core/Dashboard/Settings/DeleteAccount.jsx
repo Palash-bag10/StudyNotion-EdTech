@@ -10,7 +10,7 @@ const DeleteAccount = () => {
     const navigate = useNavigate()
 
     const deleteAccountHandler = () => {
-        // dispatch(token, navigate)
+        dispatch(token, navigate)
     }
 
   return (
