@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React from 'react'
 import {FiTrash2} from "react-icons/fi"
 import { useDispatch, useSelector } from 'react-redux'
@@ -43,4 +41,4 @@ const DeleteAccount = () => {
 }
 
 export default DeleteAccount
->>>>>>> feat_settings_comp_deleteaccount
+
