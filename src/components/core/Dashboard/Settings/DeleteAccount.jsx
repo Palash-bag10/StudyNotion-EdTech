@@ -2,6 +2,7 @@ import React from 'react'
 import {FiTrash2} from "react-icons/fi"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import { deleteAccount } from '../../../../services/operation/SettingAPI';
 
 const DeleteAccount = () => {
 
@@ -10,7 +11,11 @@ const DeleteAccount = () => {
     const navigate = useNavigate()
 
     const deleteAccountHandler = () => {
-        // dispatch(token, navigate)
+        try{
+            dispatch(deleteAccount(token, navigate))
+        }catch(error){
+            console.log("ERROR MESSAGE: ", error.message)
+        }
     }
 
   return (
