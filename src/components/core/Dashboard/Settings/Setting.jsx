@@ -4,7 +4,7 @@ import EditProfile from './EditProfile'
 import ChangePassword from './ChangePassword'
 import DeleteAccount from './DeleteAccount'
 
-const Settings = () => {
+const Setting = () => {
   return (
     <div>
       <h1>Edit Profile</h1>
@@ -25,4 +25,4 @@ const Settings = () => {
   )
 }
 
-export default Settings
+export default Setting
