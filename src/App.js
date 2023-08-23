@@ -14,7 +14,7 @@ import Contact from "./pages/Contact";
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Dashboard from "./pages/Dashboard";
 import Error from "./pages/Error";
-import Settings from "./components/core/Dashboard/Settings/Setting";
+import Settings from "./components/core/Dashboard/Settings";
 
 function App() {
 
