@@ -46,7 +46,3 @@ const DeleteAccount = () => {
 }
 
 export default DeleteAccount
-<<<<<<< HEAD
-
-=======
->>>>>>> feat_settings_comp_deleteaccount
