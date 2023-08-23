@@ -9,7 +9,7 @@ const {
     DELETE_ACCOUNT_API,
 } = settingsEndpoints
 
-export function deleteAccount(token, navigate){
+export function deleteaccount(token, navigate){
     return async (dispatch) => {
         const toastId = toast.loading("Loading...");
         try{
