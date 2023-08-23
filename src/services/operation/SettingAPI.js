@@ -14,7 +14,7 @@ export function deleteaccount(token, navigate){
         const toastId = toast.loading("Loading...");
         try{
             const response = await apiConnector("DELETE", DELETE_ACCOUNT_API, null, {
-                Authorization: `Barear ${token}`
+                Authorization: `Bearer ${token}`,
             })
             console.log("DELETE_PROFILE_API RESPONSE", response);
 
