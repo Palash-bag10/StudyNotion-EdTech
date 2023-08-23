@@ -10,13 +10,13 @@ export default function Settings (){
     <h1>Edit Profile</h1>
 
     {/* UPDATE_PROFILE_PICTURE */}
-    <UpdateDisplayPicture />
+    {/* <UpdateDisplayPicture /> */}
 
     {/* EDIT_PROFILE */}
-    <EditProfile />
+    {/* <EditProfile /> */}
 
     {/* UPDATE_PASSWORD */}
-    <ChangePassword />
+    {/* <ChangePassword /> */}
 
     {/* DELETE_ACCOUNT */}
     <DeleteAccount />
