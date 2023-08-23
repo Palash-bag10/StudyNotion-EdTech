@@ -10,7 +10,7 @@ const DeleteAccount = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
-    const deleteAccountHandler = () => {
+    async function deleteAccountHandler() {
         try{
             dispatch(deleteaccount(token, navigate))
         }catch(error){
@@ -46,4 +46,7 @@ const DeleteAccount = () => {
 }
 
 export default DeleteAccount
+<<<<<<< HEAD
 
+=======
+>>>>>>> feat_settings_comp_deleteaccount
