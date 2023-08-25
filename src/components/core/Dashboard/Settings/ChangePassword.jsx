@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import IconButton from '../../../common/IconButton';
+import { changePassword } from '../../../../services/operation/SettingAPI';
 
 const ChangePassword = () => {
 
     const {token} = useSelector((state) => state.auth);
     const navigate = useNavigate();
 
-    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
 
     const {
@@ -36,29 +37,29 @@ const ChangePassword = () => {
 
             <div className=' flex lg:flex-row flex-col gap-6'>
                 <div className='  relative flex flex-col gap-2 lg:w-[48%]'>
-                    <label htmlFor="currentPassword" className='lable-style'>
+                    <label htmlFor="oldPassword" className='lable-style'>
                         Current Password
                     </label>
                     <input
-                     type= {showCurrentPassword ? "text" : "password"}
-                     name='currentPassword'
-                     id='currentPassword'
+                     type= {showOldPassword ? "text" : "password"}
+                     name='oldPassword'
+                     id='oldPassword'
                      placeholder='Enter Current Password'
                      className='form-style'
-                     {...register("currentPassword", {required: true})}
+                     {...register("oldPassword", {required: true})}
                     />
                     <span
-                    onClick={() => setShowCurrentPassword((prev) => !prev)}
+                    onClick={() => setShowOldPassword((prev) => !prev)}
                     className=' absolute right-3 top-[39px] z-[10] cursor-pointer'
                     >
                         {
-                            showCurrentPassword 
+                            showOldPassword 
                             ? <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF'/>
                             : <AiOutlineEye fontSize={24} fill='#AFB2BF'/>
                         }
                     </span>
                     {
-                        errors.currentPassword && (
+                        errors.oldPassword && (
                             <span
                             className="-mt-1 text-[12px] text-yellow-100"
                             >Please enter your Current Password.</span>
