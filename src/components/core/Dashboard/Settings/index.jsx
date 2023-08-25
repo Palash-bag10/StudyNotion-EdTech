@@ -16,7 +16,7 @@ export default function Settings (){
     {/* <EditProfile /> */}
 
     {/* UPDATE_PASSWORD */}
-    {/* <ChangePassword /> */}
+    <ChangePassword />
 
     {/* DELETE_ACCOUNT */}
     <DeleteAccount />
