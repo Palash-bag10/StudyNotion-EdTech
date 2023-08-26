@@ -278,12 +278,12 @@ exports.changePassword = async (req,res) => {
         }
 
         // Match new password ans confirm Password
-        if(newPassword !== confirmPassword){
-            return res.status(400).json({
-                success: false,
-                message: "The password and confirm password does not match",
-            });
-        }
+        // if(newPassword !== confirmPassword){
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "The password and confirm password does not match",
+        //     });
+        // }
 
         // update Password
         const encryptedPassword = await bcrypt.hash(newPassword, 10);
@@ -314,7 +314,7 @@ exports.changePassword = async (req,res) => {
         }
 
         // return response
-        return res.status(400).json({
+        return res.status(200).json({
             success: true,
             message: "Password updated successfully",
         });
