@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import IconButton from '../../../common/IconButton';
+import { updateProfile } from '../../../../services/operation/SettingAPI';
 
 const EditProfile = () => {
 
@@ -17,14 +18,14 @@ const EditProfile = () => {
         handleSubmit,
         register,
         formState: {errors},
-    } = useForm();
+    } = useForm()
 
     const submitProfileForm = async(data) => {
         console.log("Form Data: ", data)
         try{
-
+            dispatch(updateProfile(token, data))
         }catch(error){
-
+            console.log("ERROR MESSAGE - ", error.message)
         }
     }
 
