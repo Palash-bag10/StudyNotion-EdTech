@@ -11,27 +11,30 @@ const {
     UPDATE_PROFILE_API,
 } = settingsEndpoints
 
-export async function updateProfile(token, formData){
-    const toastId = toast.loading("Loading...");
+export function updateProfile(token, formData){
+    return async (dispatch) => {
 
-    try{
-        const response = await apiConnector("PUT", UPDATE_PROFILE_API, formData, {
-            Authorization: `Bearer ${token}`,
-        })
-        console.log("UPDATE_PROFILE_API RESPONSE: ", response);
-
-        if(!response.data.success){
-            throw new Error(response.data.message);
+        const toastId = toast.loading("Loading...");
+    
+        try{
+            const response = await apiConnector("PUT", UPDATE_PROFILE_API, formData, {
+                Authorization: `Bearer ${token}`,
+            })
+            console.log("UPDATE_PROFILE_API RESPONSE: ", response);
+    
+            if(!response.data.success){
+                throw new Error(response.data.message);
+            }
+    
+            toast.success("Profile Update Successfully");
+    
+        } catch(error){
+            console.log("UPDATE_PROFILE_API ERROR...", error)
+            toast.error("Could not Update Profile")
         }
-
-        toast.success("Profile Update Successfully");
-
-    } catch(error){
-        console.log("UPDATE_PROFILE_API ERROR...", error)
-        toast.error("Could not Update Profile")
+    
+        toast.dismiss(toastId)
     }
-
-    toast.dismiss(toastId)
 }
 
 export async function changePassword(token, formData){
