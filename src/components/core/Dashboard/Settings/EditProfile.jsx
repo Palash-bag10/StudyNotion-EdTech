@@ -18,7 +18,7 @@ const EditProfile = () => {
         handleSubmit,
         register,
         formState: {errors},
-    } = useForm();
+    } = useForm()
 
     const submitProfileForm = async(data) => {
         console.log("Form Data: ", data)
