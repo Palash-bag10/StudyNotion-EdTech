@@ -13,7 +13,7 @@ export default function Settings (){
     {/* <UpdateDisplayPicture /> */}
 
     {/* EDIT_PROFILE */}
-    {/* <EditProfile /> */}
+    <EditProfile />
 
     {/* UPDATE_PASSWORD */}
     <ChangePassword />
