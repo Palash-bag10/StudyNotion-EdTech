@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IconButton from '../../../common/IconButton';
+import {FiUpload} from "react-icons/fi"
 
 const UpdateDisplayPicture = () => {
 
@@ -10,6 +11,7 @@ const UpdateDisplayPicture = () => {
 
     const [previewImage, setPreviewImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const fileInputRef = useRef(null);
 
@@ -40,6 +42,16 @@ const UpdateDisplayPicture = () => {
         }
     }, [imageFile])
 
+    const handleFileUpload = () => {
+        try{
+            console.log("Uploading.....")
+            setLoading(true);
+            const formData = new FormData()
+            formData.append("displayPicture", imageFile)
+        } catch(error) {
+            console.log("ERROR MESSAGE - ", error.message)
+        }
+    }
 
 
   return (
@@ -64,15 +76,18 @@ const UpdateDisplayPicture = () => {
                     />
                     <button
                     onClick={handleClick}
+                    disabled={loading}
                     className=' cursor-pointer rounded-md bg-richblack-700 font-semibold text-richblack-50 px-5 py-2'
                     >
                         Select
                     </button>
                     <IconButton
-                     text="Upload"
-
+                     text={loading ? "Uploading..." : "Upload"}
+                     onclick={handleFileUpload}
                     >
-
+                        {!loading && 
+                            <FiUpload className="text-lg text-richblack-900"/>
+                        }
                     </IconButton>
                 </div>
             </div>
