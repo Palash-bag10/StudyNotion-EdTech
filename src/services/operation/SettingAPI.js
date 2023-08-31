@@ -2,6 +2,7 @@ import { toast } from "react-hot-toast";
 import { settingsEndpoints } from "../apis";
 import { apiConnector } from "../apiconnector";
 import { logout } from "./authAPI";
+import { setUser } from "../../slices/profileSlice";
 
 
 
@@ -9,7 +10,32 @@ const {
     DELETE_ACCOUNT_API,
     CHANGE_PASSWORD_API,
     UPDATE_PROFILE_API,
+    UPDATE_PROFILE_PICTURE_API,
 } = settingsEndpoints
+
+export function updateDisplayPictue(token, formData){
+    return async (dispatch) => {
+        const toastId = toast.loading("Loading...")
+        try{
+            const response = await apiConnector("PUT", UPDATE_PROFILE_PICTURE_API, formData, {
+                "content-type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+            })
+            console.log("UPDATE_PROFILE_PICTURE_API", response)
+
+            if(!response.data.success){
+                throw new Error(response.data.message)
+            }
+
+            toast.success("Display Picture Updated Successfully");
+            dispatch(setUser(response.data.data))
+        }catch(error) {
+            console.log("UPDATE_PROFILE_PICTURE_API", error)
+            toast.error("Could not Updated Display Picture")
+        }
+        toast.dismiss(toastId)
+    }
+}
 
 export function updateProfile(token, formData){
     return async (dispatch) => {
@@ -25,6 +51,11 @@ export function updateProfile(token, formData){
             if(!response.data.success){
                 throw new Error(response.data.message);
             }
+
+            const userImage = response.data.updateUserDetails.image 
+            ? response.data.updateUserDetails.image
+            : `https://api.dicebear.com/6.x/initials/svg?seed=${response.data.updateUserDetails.firstName} ${response.data.updateUserDetails.lastName}`
+            dispatch(setUser({...response.data.updateUserDetails, image: userImage }))
     
             toast.success("Profile Update Successfully");
     
