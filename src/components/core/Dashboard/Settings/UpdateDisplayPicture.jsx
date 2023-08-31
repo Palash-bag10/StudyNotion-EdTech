@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IconButton from '../../../common/IconButton';
 import {FiUpload} from "react-icons/fi"
+import { updateDisplayPictue } from '../../../../services/operation/SettingAPI';
 
 const UpdateDisplayPicture = () => {
 
@@ -48,6 +49,9 @@ const UpdateDisplayPicture = () => {
             setLoading(true);
             const formData = new FormData()
             formData.append("displayPicture", imageFile)
+            dispatch(updateDisplayPictue(token, formData)).then(() => {
+                setLoading(false)
+            })
         } catch(error) {
             console.log("ERROR MESSAGE - ", error.message)
         }
