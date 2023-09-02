@@ -17,7 +17,7 @@ const SideBar = () => {
 
     if(profileLoading || authLoading){
         return(
-            <div>
+            <div className=' grid h-[calc(100vh-3.5rem)] min-w-[220px]  items-center border-r-[1px] border-r-richblack-700 bg-richblack-800'>
                 <div className='spinner'></div>
             </div>
         )
@@ -55,7 +55,7 @@ const SideBar = () => {
                     btn1Handler: ()=> dispatch(logout(navigate)),
                     btn2Handler: () => setConfirmationModal(null),
                 })}
-                className=' text-sm font-medium text-richblack-300'
+                className=' px-8 py-2 text-sm font-medium text-richblack-300'
                 >
                     <div className=' flex items-center gap-x-2'>
                         <VscSignOut className=' text-lg'/>
