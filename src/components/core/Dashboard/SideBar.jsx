@@ -55,7 +55,7 @@ const SideBar = () => {
                     btn1Handler: ()=> dispatch(logout(navigate)),
                     btn2Handler: () => setConfirmationModal(null),
                 })}
-                className=' text-sm font-medium text-richblack-300'
+                className=' px-8 py-2 text-sm font-medium text-richblack-300'
                 >
                     <div className=' flex items-center gap-x-2'>
                         <VscSignOut className=' text-lg'/>
