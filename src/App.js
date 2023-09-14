@@ -17,8 +17,12 @@ import Error from "./pages/Error";
 import Settings from "./components/core/Dashboard/Settings";
 import EnrollCourses from "./components/core/Dashboard/EnrollCourse/EnrollCourses";
 import Cart from "./components/core/Dashboard/Cart";
+import { ACCOUNT_TYPE } from "./utils/constants";
+import { useSelector } from "react-redux";
 
 function App() {
+
+  const {user} = useSelector((state) => state.profile)
 
   return (
     // THIS IS OUR TOP LEVEL DIV
@@ -83,8 +87,15 @@ function App() {
         >
           <Route path="/dashboard/my-profile" element={<MyProfile/>}/>
           <Route path="/dashboard/settings" element={<Settings/>}/>
-          <Route path="/dashboard/enrolled-courses" element={<EnrollCourses/>}/>
-          <Route path="/dashboard/cart" element={<Cart/>}/>
+          
+          {
+            user?.accountType === ACCOUNT_TYPE.STUDENT && (
+              <>
+              <Route path="/dashboard/enrolled-courses" element={<EnrollCourses/>}/>
+              <Route path="/dashboard/cart" element={<Cart/>}/>
+              </>
+            )
+          }
 
 
         </Route>
