@@ -1,7 +1,10 @@
 import React from 'react'
 import {FaCheck} from "react-icons/fa"
+import { useSelector } from 'react-redux'
 
 const RenderAddCourseSteps = () => {
+
+  const {step} = useSelector((state) => state.course)
 
   const steps = [
     {
