@@ -53,6 +53,18 @@ const RenderAddCourseSteps = () => {
           ))
         }
       </div>
+
+      <div>
+        {
+          steps.map((item) => (
+            <div>
+              <p className={`${step >= item.id ? " text-richblack-5" : " text-richblack-900"}`}>
+                {item.title}
+              </p>
+            </div>
+          ))
+        }
+      </div>
     </>
   )
 }
