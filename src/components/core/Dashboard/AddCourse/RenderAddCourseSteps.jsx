@@ -2,9 +2,9 @@ import React from 'react'
 import {FaCheck} from "react-icons/fa"
 import { useSelector } from 'react-redux'
 
-const RenderAddCourseSteps = () => {
+const RenderAddCoursesteps = () => {
 
-  const {step} = useSelector((state) => state.course)
+  const { step } = useSelector((state) => state.course)
 
   const steps = [
     {
@@ -27,7 +27,9 @@ const RenderAddCourseSteps = () => {
         {
           steps.map((item) => (
             <>
-              <div>
+              <div
+              key={item.id}
+              >
                 <div 
                 className={`${step === item.id 
                           ? " bg-yellow-900 text-yellow-50 border-yellow-50"
@@ -57,7 +59,9 @@ const RenderAddCourseSteps = () => {
       <div>
         {
           steps.map((item) => (
-            <div>
+            <div
+            key={item.id}
+            >
               <p className={`${step >= item.id ? " text-richblack-5" : " text-richblack-900"}`}>
                 {item.title}
               </p>
@@ -69,4 +73,4 @@ const RenderAddCourseSteps = () => {
   )
 }
 
-export default RenderAddCourseSteps
+export default RenderAddCoursesteps
