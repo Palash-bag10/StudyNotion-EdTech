@@ -1,6 +1,7 @@
 import React from 'react'
 import {FaCheck} from "react-icons/fa"
 import { useSelector } from 'react-redux'
+import CourseInformationForm from './CourseInformation/CourseInformationForm'
 
 const RenderAddCoursesteps = () => {
 
@@ -59,6 +60,7 @@ const RenderAddCoursesteps = () => {
       <div>
         {
           steps.map((item) => (
+            <>
             <div
             key={item.id}
             >
@@ -66,9 +68,14 @@ const RenderAddCoursesteps = () => {
                 {item.title}
               </p>
             </div>
+            </>
           ))
         }
       </div>
+
+      {step === 1 && <CourseInformationForm/>}
+      {/* {step === 2 && <CourseBuilderForm />}
+      {step === 3 && <PublishCourse />} */}
     </>
   )
 }
