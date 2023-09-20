@@ -144,6 +144,22 @@ const CourseInformationForm = () => {
       {/* Course Tags */}
 
       {/* Course Thumbnail */}
+
+      {/* Benefits of the Course */}
+      <div>
+        <label htmlFor="courseBenefits">Benefits of the Course<sup className=' text-pink-300'>*</sup></label>
+        <textarea
+         id="courseBenefits"
+         placeholder='Enter Benefits Of the course'
+         {...register("courseBenefits", {require: true})}
+         className='min-h-[140px] w-full'
+         />
+         {
+          errors.courseBenefits && (
+            <span>Benefits of the course are required</span>
+          )
+         }
+      </div>
       
     </form>
   )
