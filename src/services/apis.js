@@ -30,3 +30,10 @@ export const settingsEndpoints = {
 export const profileEndPoints = {
     GET_USER_ENROLLED_COURSES_API: BASE_URL + "/profile/getEnrolledCourse"
 }
+
+// COURSE ENDPOINTS
+export const courseEndPoints = {
+    EDIT_COURSE_API: BASE_URL + "/course/editCourse",
+    CREATE_COURSE_API: BASE_URL + "/course/createcourse",
+    COURSE_CATEGORIES_API: BASE_URL + "/course/showAllCategories",
+}
