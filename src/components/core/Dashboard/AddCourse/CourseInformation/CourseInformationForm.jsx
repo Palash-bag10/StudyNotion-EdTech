@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCourseCategories } from '../../../../../services/operation/courseDetailsAPI';
 import {HiOutlineCurrencyRupee} from "react-icons/hi"
+import RequirementField from './RequirementField';
 
 const CourseInformationForm = () => {
 
@@ -160,6 +161,16 @@ const CourseInformationForm = () => {
           )
          }
       </div>
+
+      {/* Requirements field */}
+      <RequirementField
+        name="courseRequirments"
+        label="Requirements/Instructions"
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+        errors={errors}
+      />
       
     </form>
   )
