@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCourseCategories } from '../../../../../services/operation/courseDetailsAPI';
+import { addCourseDetails, editCourseDetails, fetchCourseCategories } from '../../../../../services/operation/courseDetailsAPI';
 import {HiOutlineCurrencyRupee} from "react-icons/hi"
 import RequirementField from './RequirementField';
-import { setStep } from '../../../../../slices/courseSlice';
+import { setCourse, setStep } from '../../../../../slices/courseSlice';
 import IconButton from '../../../../common/IconButton';
+import toast from 'react-hot-toast';
+import { COURSE_STATUS } from '../../../../../utils/constants';
 
 const CourseInformationForm = () => {
 
@@ -21,6 +23,7 @@ const CourseInformationForm = () => {
   const [courseCategories, setCourseCategories] = useState([]);
 
   const {course, editCourse} = useSelector((state) => state.course);
+  const {token} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,8 +51,99 @@ const CourseInformationForm = () => {
     getCategories()
   }, [])
 
-  const onSubmit = async(data) => {
+  const isUpdatedForm = () => {
+    const currentValues = getValues();
+    if(
+      currentValues.courseTitle !== course.courseName ||
+      currentValues.courseShortDesc !== course.courseDescription ||
+      currentValues.coursePrice !== course.price ||
+      // currentValues.courseTags.toString() !== course.tag.toString() ||
+      currentValues.courseBenefits !== course.whatYouWillLearn ||
+      currentValues.courseCategory !== course.category ||
+      currentValues.courseRequirments.toString() !== course.instructions.toString()
+      // || currentValues.courseImage !== course.thumbnail
+    ) return true;
+    else 
+      return false;
+  }
 
+  // Handle Next Button
+  const onSubmit = async(data) => {
+    if(editCourse){
+      if(isUpdatedForm()) {
+        const currentValues = getValues();
+          const formData = new FormData();
+
+          formData.append("courseId", course._id);
+
+          if(currentValues.courseTitle !== course.courseName) {
+            formData.append("courseName", data.courseTitle);
+          }
+
+          if(currentValues.courseShortDesc !== course.courseDescription) {
+            formData.append("courseDescription", data.courseShortDesc);
+          }
+
+          if(currentValues.coursePrice !== course.price) {
+            formData.append("price", data.coursePrice);
+          }
+
+          // if(currentValues.courseTags !== course.tag) {
+          //   formData.append("tag", data.courseTags);
+          // }
+
+          if(currentValues.courseBenefits !== course.whatYouWillLearn) {
+            formData.append("whatYouWillLearn", data.courseBenefits);
+          }
+
+          if(currentValues.courseCategory._id !== course.category._id) {
+            formData.append("category", data.courseCategory);
+          }
+
+          if(currentValues.courseRequirments.toString() !== course.instructions.toString()) {
+            formData.append("instructions", JSON.stringify(data.courseRequirments));
+          }
+
+          // if(currentValues.courseImage !== course.thumbnail) {
+          //   formData.append("thumbnail", data.courseImage);
+          // }
+
+          setLoading(true);
+          const result = editCourseDetails(formData, token);
+          setLoading(false)
+
+          if(result){
+            setStep(2)
+            dispatch(setCourse(result))
+          }
+        }
+        else{
+          toast.error("No Changes made to the form")
+        }
+        return
+      }
+      
+      // Create a new course
+      const formData = new FormData();
+      formData.append("courseName", data.courseTitle);
+      formData.append("courseDescription", data.courseShortDesc);
+      formData.append("price", data.coursePrice);
+      formData.append("whatYouWillLearn", data.courseBenefits);
+      formData.append("category", data.courseCategory);
+      formData.append("instructions", JSON.stringify(data.courseRequirments));
+      // formData.append("tag", data.courseTags);
+      // formData.append("thumbnail", data.courseImage);
+      formData.append("status", COURSE_STATUS.DRAFT);
+
+      setLoading(true)
+      const result = await addCourseDetails(formData, token)
+      if(result){
+        setStep(2)
+        dispatch(setCourse(result))
+      }
+      setLoading(false)
+      console.log("PRINTING FORMDATA", formData)
+      console.log("PRINTING RESULT", result)
   }
 
   return (
@@ -167,7 +261,7 @@ const CourseInformationForm = () => {
       {/* Requirements field */}
       <RequirementField
         name="courseRequirments"
-        label="Requirements/Instructions"
+        lable="Requirements/Instructions"
         register={register}
         setValue={setValue}
         getValues={getValues}
