@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCourseCategories } from '../../../../../services/operation/courseDetailsAPI';
 import {HiOutlineCurrencyRupee} from "react-icons/hi"
 import RequirementField from './RequirementField';
+import { setStep } from '../../../../../slices/courseSlice';
+import IconButton from '../../../../common/IconButton';
 
 const CourseInformationForm = () => {
 
@@ -171,6 +173,22 @@ const CourseInformationForm = () => {
         getValues={getValues}
         errors={errors}
       />
+
+      <div>
+        {
+          editCourse && (
+            <button
+            onClick={() => dispatch(setStep(2))}
+            >
+              Continue Without Saving
+            </button>
+          )
+        }
+
+        <IconButton
+          text={!editCourse ? "Next" : "Save Changes"}
+        />
+      </div>
       
     </form>
   )
