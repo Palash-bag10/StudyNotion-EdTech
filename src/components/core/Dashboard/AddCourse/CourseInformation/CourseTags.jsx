@@ -14,7 +14,7 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
     }
 
     const handleDeleteTag = (index) => {
-        
+
     }
 
   return (
@@ -45,6 +45,11 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
          onKeyDown={handleKeyDown}
         />
       </div>
+      {
+        errors[name] && (
+            <span> {label} is Required </span>
+        )
+      }
     </div>
   )
 }
