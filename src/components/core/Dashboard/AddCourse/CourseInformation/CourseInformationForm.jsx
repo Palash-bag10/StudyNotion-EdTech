@@ -8,6 +8,7 @@ import { setCourse, setStep } from '../../../../../slices/courseSlice';
 import IconButton from '../../../../common/IconButton';
 import toast from 'react-hot-toast';
 import { COURSE_STATUS } from '../../../../../utils/constants';
+import CourseTags from './CourseTags';
 
 const CourseInformationForm = () => {
 
@@ -57,7 +58,7 @@ const CourseInformationForm = () => {
       currentValues.courseTitle !== course.courseName ||
       currentValues.courseShortDesc !== course.courseDescription ||
       currentValues.coursePrice !== course.price ||
-      // currentValues.courseTags.toString() !== course.tag.toString() ||
+      currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory !== course.category ||
       currentValues.courseRequirments.toString() !== course.instructions.toString()
@@ -88,9 +89,9 @@ const CourseInformationForm = () => {
             formData.append("price", data.coursePrice);
           }
 
-          // if(currentValues.courseTags !== course.tag) {
-          //   formData.append("tag", data.courseTags);
-          // }
+          if(currentValues.courseTags !== course.tag) {
+            formData.append("tag", data.courseTags);
+          }
 
           if(currentValues.courseBenefits !== course.whatYouWillLearn) {
             formData.append("whatYouWillLearn", data.courseBenefits);
@@ -131,7 +132,7 @@ const CourseInformationForm = () => {
       formData.append("whatYouWillLearn", data.courseBenefits);
       formData.append("category", data.courseCategory);
       formData.append("instructions", JSON.stringify(data.courseRequirments));
-      // formData.append("tag", data.courseTags);
+      formData.append("tag", data.courseTags);
       // formData.append("thumbnail", data.courseImage);
       formData.append("status", COURSE_STATUS.DRAFT);
 
@@ -239,6 +240,15 @@ const CourseInformationForm = () => {
       </div>
 
       {/* Course Tags */}
+      <CourseTags
+        label="Tags"
+        name="courseTags"
+        placeholder="Choose a Tag"
+        setValue={setValue}
+        getValues={getValues}
+        register={register}
+        errors={errors}
+      />
 
       {/* Course Thumbnail */}
 
