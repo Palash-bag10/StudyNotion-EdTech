@@ -36,8 +36,9 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
         }
     }
 
-    const handleDeleteTag = (index) => {
-
+    const handleDeleteTag = (tagIndex) => {
+        const newTags = tags.filter((index) => index !== tagIndex)
+        setTags(newTags)
     }
 
   return (
@@ -52,7 +53,8 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
                 >
                     {tag}
                     <button
-                    onClick={() => handleDeleteTag()}
+                    type="button"
+                    onClick={() => handleDeleteTag(index)}
                     >
                         <MdClose />
                     </button>
@@ -66,6 +68,7 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
          name={name}
          placeholder={placeholder}
          onKeyDown={handleKeyDown}
+         className='form-style w-full'
         />
       </div>
       {
