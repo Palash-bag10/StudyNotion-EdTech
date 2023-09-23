@@ -37,7 +37,7 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
     }
 
     const handleDeleteTag = (tagIndex) => {
-        const newTags = tags.filter((index) => index !== tagIndex)
+        const newTags = tags.filter((_,index) => index !== tagIndex)
         setTags(newTags)
     }
 
