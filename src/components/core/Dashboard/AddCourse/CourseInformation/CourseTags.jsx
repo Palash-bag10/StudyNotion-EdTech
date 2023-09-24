@@ -42,21 +42,26 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
     }
 
   return (
-    <div>
-      <label htmlFor={name}> {label}<sup className=' text-pink-300'>*</sup> </label>
+    <div className=' flex flex-col space-y-2'>
+      <label 
+        htmlFor={name}
+        className=' text-sm text-richblack-5'
+        > {label}<sup className=' text-pink-300'>*</sup> </label>
 
-      <div>
+      <div className=' flex w-full flex-wrap gap-y-2'>
         {
             tags.map((tag, index) => (
                 <div
                 key={index}
+                className=' flex items-center rounded-full bg-yellow-400 px-2 py-2 text-sm text-richblack-5'
                 >
                     {tag}
                     <button
                     type="button"
                     onClick={() => handleDeleteTag(index)}
+                    className=' ml-2 '
                     >
-                        <MdClose />
+                        <MdClose className=' text-sm'/>
                     </button>
                 </div>
             ))
@@ -73,7 +78,9 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
       </div>
       {
         errors[name] && (
-            <span> {label} is Required </span>
+            <span
+            className=' ml-2 text-xs text-pink-200 tracking-wide'
+            > {label} is Required </span>
         )
       }
     </div>
