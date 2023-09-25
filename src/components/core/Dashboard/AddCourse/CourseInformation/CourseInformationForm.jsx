@@ -9,6 +9,7 @@ import IconButton from '../../../../common/IconButton';
 import toast from 'react-hot-toast';
 import { COURSE_STATUS } from '../../../../../utils/constants';
 import CourseTags from './CourseTags';
+import MediaUpload from '../MediaUpload';
 
 const CourseInformationForm = () => {
 
@@ -61,8 +62,8 @@ const CourseInformationForm = () => {
       currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory !== course.category ||
-      currentValues.courseRequirments.toString() !== course.instructions.toString()
-      // || currentValues.courseImage !== course.thumbnail
+      currentValues.courseRequirments.toString() !== course.instructions.toString() ||
+      currentValues.courseImage !== course.thumbnail
     ) return true;
     else 
       return false;
@@ -105,9 +106,9 @@ const CourseInformationForm = () => {
             formData.append("instructions", JSON.stringify(data.courseRequirments));
           }
 
-          // if(currentValues.courseImage !== course.thumbnail) {
-          //   formData.append("thumbnail", data.courseImage);
-          // }
+          if(currentValues.courseImage !== course.thumbnail) {
+            formData.append("thumbnail", data.courseImage);
+          }
 
           setLoading(true);
           const result = editCourseDetails(formData, token);
@@ -133,7 +134,7 @@ const CourseInformationForm = () => {
       formData.append("category", data.courseCategory);
       formData.append("instructions", JSON.stringify(data.courseRequirments));
       formData.append("tag", data.courseTags);
-      // formData.append("thumbnail", data.courseImage);
+      formData.append("thumbnail", data.courseImage);
       formData.append("status", COURSE_STATUS.DRAFT);
 
       setLoading(true)
@@ -251,6 +252,14 @@ const CourseInformationForm = () => {
       />
 
       {/* Course Thumbnail */}
+      <MediaUpload
+        name="courseImage"
+        lable="Course Thumbnail"
+        setValue={setValue}
+        register={register}
+        errors={errors}
+        editData={editCourse ? course?.thumbnail : null}
+      />
 
       {/* Benefits of the Course */}
       <div>
