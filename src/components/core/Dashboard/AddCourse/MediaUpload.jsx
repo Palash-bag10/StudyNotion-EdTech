@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useRef } from 'react'
+import { useDropzone } from 'react-dropzone'
 import {FiUpload} from 'react-icons/fi'
 
 const MediaUpload = ({
@@ -17,6 +18,29 @@ const MediaUpload = ({
     const [previewSource, setPreviewSource] = useState(viewData)
 
     const inputRef = useRef(null)
+
+    const previewFile = (file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        setPreviewSource(reader.result)
+      }
+    }
+
+    const onDrop = (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if(file){
+        previewFile(file);
+        setSelectedFile(file);
+      }
+    }
+
+    const {getRootProps, getInputProps, isDragAccept} = useDropzone({
+      accept: !video ? {"image" : [".jpeg", ".jpg", ".png"]} : {"video" : [".mp4"]},
+      onDrop,
+    })
+
+    
 
   return (
     <div>
