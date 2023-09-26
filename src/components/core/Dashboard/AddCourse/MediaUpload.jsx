@@ -63,6 +63,10 @@ const MediaUpload = ({
             </div>
         {/* )} */}
       </div>
+
+      {errors[name] && (
+        <span> {lable} is Required </span>
+      )}
     </div>
   )
 }
