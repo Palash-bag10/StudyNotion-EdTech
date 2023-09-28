@@ -107,7 +107,7 @@ const CourseInformationForm = () => {
           }
 
           if(currentValues.courseImage !== course.thumbnail) {
-            formData.append("thumbnail", data.courseImage);
+            formData.append("thumbnailImage", data.courseImage);
           }
 
           setLoading(true);
@@ -134,7 +134,7 @@ const CourseInformationForm = () => {
       formData.append("category", data.courseCategory);
       formData.append("instructions", JSON.stringify(data.courseRequirments));
       formData.append("tag", data.courseTags);
-      formData.append("thumbnail", data.courseImage);
+      formData.append("thumbnailImage", data.courseImage);
       formData.append("status", COURSE_STATUS.DRAFT);
 
       setLoading(true)
