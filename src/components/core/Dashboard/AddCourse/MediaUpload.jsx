@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { useRef } from 'react'
 import { useDropzone } from 'react-dropzone'
 import {FiUpload} from 'react-icons/fi'
@@ -43,6 +44,14 @@ const MediaUpload = ({
       onDrop,
     })
 
+    useEffect(() => {
+      register(name, {required: true})
+    },[register])
+
+    useEffect(() => {
+      setValue(name, selectedFile)
+    }, [selectedFile, setValue])
+
     
 
   return (
@@ -78,19 +87,19 @@ const MediaUpload = ({
                 }
               </div>
           ) : ( 
-            <div>
-                  <input ref={inputRef}/>
-                  <div>
-                      <FiUpload/>
-                  </div>
-                  <p>
-                      Drag and drop an image, or <span className=' text-yellow-200'>Browse</span>  Max 6MB each (12MB for videos)
-                  </p>
-                  <ul>
-                      <li>Aspect ratio 16:9</li>
-                      <li>Recommended size 1024x576</li>
-                  </ul>
+            <div {...getRootProps()}>
+              <input {...getInputProps()} ref={inputRef}/>
+              <div>
+                <FiUpload/>
               </div>
+              <p>
+                Drag and drop an {!video ? "Image" : "Video"}, or <span className=' text-yellow-200'>Browse</span>  Max 6MB each (12MB for videos)
+              </p>
+              <ul>
+                <li>Aspect ratio 16:9</li>
+                <li>Recommended size 1024x576</li>
+              </ul>
+            </div>
            )}
       </div>
 
