@@ -56,7 +56,7 @@ const MediaUpload = ({
 
   return (
     <div>
-      <label htmlFor={name}> {lable}<sup className=' text-pink-300'>*</sup> </label>
+      <label htmlFor={name}> {lable}{!viewData && <sup className=' text-pink-300'>*</sup>} </label>
 
       <div className={`${isDragActive ? "bg-richblack-600" : " bg-richblack-700"} flex items-center justify-center border-dotted rounded-lg min-h-[250px] cursor-pointer border-2 border-richblack-500`}>
         {previewSource ?
