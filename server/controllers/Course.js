@@ -200,3 +200,29 @@ exports.getCourseDetails = async (req, res) => {
         })
     } 
 }
+
+// getInstructorCourse Handler Function (get a list of course for a given instructor)
+exports.getInstructorCourse = async (req, res) => {
+    try{
+        // fetch instructor id from request body
+        const instructorId = req.user.id;
+
+        // find all courses under specific instructor and sort in descending order
+        const instructorCourses = await Course.find({
+            instructor: instructorId,
+        }).sort({ createdAt: -1 })
+
+        // retuen response
+        res.status(200).json({
+            success: true,
+            data: instructorCourses,
+        })
+    }catch(error){
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrive Instructor Course",
+            error: error.message,
+        })
+    }
+}
