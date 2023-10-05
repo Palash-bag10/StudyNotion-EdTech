@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // IMPORT CONTROLLERS
-const {createCourse, showAllCourses, getCourseDetails} = require("../controllers/Course");
+const {createCourse, showAllCourses, getCourseDetails, getInstructorCourse} = require("../controllers/Course");
 const {createCategory, showAllCategories, categoryPageDetails} = require("../controllers/Category");
 const {createSection, updateSection, deleteSection} = require("../controllers/Section");
 const {createSubSection, updateSubsection, deleteSubsection} = require("../controllers/Subsection");
@@ -16,6 +16,7 @@ const {auth, isStudent, isInstructor, isAdmin} = require("../middlewares/auth");
 router.post("/createcourse",auth, isInstructor, createCourse);
 router.get("/showAllCourses", showAllCourses);
 router.post("/getCourseDetails", getCourseDetails);
+router.get("/getInstructorCourse", auth, isInstructor, getInstructorCourse);
 
 // SECTION
 router.post("/createSection",auth, isInstructor, createSection);
