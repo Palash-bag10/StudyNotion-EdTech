@@ -27,7 +27,7 @@ const CourseTable = ({courses, setCourses}) => {
                 courses?.length === 0
                 ? (
                     <Tr>
-                        <Td>
+                        <Td className="py-10 text-center text-2xl font-medium text-richblack-100">
                             No Course Found
                         </Td>
                     </Tr>
@@ -36,21 +36,22 @@ const CourseTable = ({courses, setCourses}) => {
                     courses?.map((course) => (
                         <Tr 
                         key={course._id}
+                        className="flex gap-x-10 border-b border-richblack-800 px-6 py-8"
                         >
-                            <Td>
+                            <Td className="flex flex-1 gap-x-4">
                                 <img
                                  src={course?.thumbnail}
                                  alt={course?.courseName}
                                  className='h-[148px] w-[220px] object-cover rounded-lg'
                                 />
-                                <div>
-                                    <p>
+                                <div className='flex flex-col justify-between'>
+                                    <p className='text-lg font-semibold text-richblack-5'>
                                         {course?.courseName}
                                     </p>
-                                    <p>
+                                    <p className='text-xs text-richblack-300'>
                                         {course?.courseDescription}
                                     </p>
-                                    <p>
+                                    <p className='text-[12px] text-white'>
                                         Created: {formatDate(course.createdAt)}
                                     </p>
                                 </div>
