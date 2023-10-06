@@ -51,7 +51,7 @@ const CourseTable = ({courses, setCourses}) => {
                                         {course?.courseDescription}
                                     </p>
                                     <p>
-                                        Created: {formatDate(course?.createdAt)}
+                                        Created: {formatDate(course.createdAt)}
                                     </p>
                                 </div>
                             </Td>
