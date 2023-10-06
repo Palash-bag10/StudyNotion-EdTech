@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
+import { formatDate } from '../../../../services/formatDate'
 
 const CourseTable = ({courses, setCourses}) => {
   return (
@@ -48,6 +49,9 @@ const CourseTable = ({courses, setCourses}) => {
                                     </p>
                                     <p>
                                         {course?.courseDescription}
+                                    </p>
+                                    <p>
+                                        Created: {formatDate(course?.createdAt)}
                                     </p>
                                 </div>
                             </Td>
