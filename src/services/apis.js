@@ -36,5 +36,5 @@ export const courseEndPoints = {
     EDIT_COURSE_API: BASE_URL + "/course/editCourse",
     CREATE_COURSE_API: BASE_URL + "/course/createcourse",
     COURSE_CATEGORIES_API: BASE_URL + "/course/showAllCategories",
-    GET_ALL_INSTRUCTOR_COURSES_API: BASE_URL + "/courses/getInstructorCourse"
+    GET_ALL_INSTRUCTOR_COURSES_API: BASE_URL + "/course/getInstructorCourse"
 }
