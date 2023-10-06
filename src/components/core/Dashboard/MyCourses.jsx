@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { fetchInstructorCourses } from '../../../services/operation/courseDetailsAPI'
 import { useState } from 'react'
+import CourseTable from './InstructorCourses/CourseTable'
 
 const MyCourses = () => {
 
@@ -32,6 +33,7 @@ const MyCourses = () => {
             onclick={() => navigate("/dashboard/add-course") }
         > <AiOutlinePlusCircle/> </IconButton>
       </div>
+      {courses && <CourseTable courses={courses} setCourses={setCourses} />}
     </div>
   )
 }
