@@ -1,9 +1,12 @@
 import React from 'react'
 import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { formatDate } from '../../../../services/formatDate'
 import { COURSE_STATUS } from '../../../../utils/constants'
 import {FaCheck} from "react-icons/fa"
 import {HiClock} from "react-icons/hi"
+import {FiEdit2} from "react-icons/fi"
+import {MdDelete} from "react-icons/md"
 
 const CourseTable = ({courses, setCourses}) => {
   return (
@@ -77,6 +80,20 @@ const CourseTable = ({courses, setCourses}) => {
                             </Td>
                             <Td className="text-sm font-medium text-richblack-100">
                                 ₹{course.price}
+                            </Td>
+                            <Td className="text-sm font-medium text-richblack-100">
+                                <button
+                                title='Edit'
+                                className=' px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300'
+                                >
+                                    <FiEdit2 size={20}/>
+                                </button>
+                                <button 
+                                title='Delete'
+                                className='px-2 transition-all duration-200 hover:scale-110 hover:text-pink-300'
+                                >
+                                    <MdDelete size={20}/>
+                                </button>
                             </Td>
                         </Tr>
                     ))
