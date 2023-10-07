@@ -1,6 +1,9 @@
 import React from 'react'
 import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
 import { formatDate } from '../../../../services/formatDate'
+import { COURSE_STATUS } from '../../../../utils/constants'
+import {FaCheck} from "react-icons/fa"
+import {HiClock} from "react-icons/hi"
 
 const CourseTable = ({courses, setCourses}) => {
   return (
@@ -54,6 +57,19 @@ const CourseTable = ({courses, setCourses}) => {
                                     <p className='text-[12px] text-white'>
                                         Created: {formatDate(course.createdAt)}
                                     </p>
+                                    {course.status === COURSE_STATUS.DRAFT
+                                        ? (
+                                            <p className=' flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium text-pink-100'>
+                                                <HiClock size={14}/>
+                                                Drafted
+                                            </p>
+                                        )
+                                        : (
+                                            <p className='flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium text-yellow-100'>
+                                                <FaCheck size={8}/>
+                                                Published
+                                            </p>
+                                        )}
                                 </div>
                             </Td>
                         </Tr>
