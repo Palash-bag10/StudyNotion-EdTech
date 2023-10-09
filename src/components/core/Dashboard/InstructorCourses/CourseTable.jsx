@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { formatDate } from '../../../../services/formatDate'
@@ -7,8 +7,13 @@ import {FaCheck} from "react-icons/fa"
 import {HiClock} from "react-icons/hi"
 import {FiEdit2} from "react-icons/fi"
 import {MdDelete} from "react-icons/md"
+import { useNavigate } from 'react-router-dom'
 
 const CourseTable = ({courses, setCourses}) => {
+
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
   return (
     <>
     <Table className="rounded-xl border border-richblack-800" >
@@ -83,6 +88,10 @@ const CourseTable = ({courses, setCourses}) => {
                             </Td>
                             <Td className="text-sm font-medium text-richblack-100">
                                 <button
+                                disabled={loading}
+                                onClick={() => {
+                                    navigate(`/dashboard/edit-course/${course._id}`)
+                                }}
                                 title='Edit'
                                 className=' px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300'
                                 >
