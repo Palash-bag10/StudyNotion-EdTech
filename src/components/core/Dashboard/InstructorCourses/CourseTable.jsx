@@ -8,10 +8,12 @@ import {HiClock} from "react-icons/hi"
 import {FiEdit2} from "react-icons/fi"
 import {MdDelete} from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
+import ConfirmationModal from '../../../common/ConfirmationModal'
 
 const CourseTable = ({courses, setCourses}) => {
 
     const [loading, setLoading] = useState(false);
+    const [confirmationModal, setConfirmationModal] = useState(null);
     const navigate = useNavigate();
 
   return (
@@ -88,18 +90,28 @@ const CourseTable = ({courses, setCourses}) => {
                             </Td>
                             <Td className="text-sm font-medium text-richblack-100">
                                 <button
-                                disabled={loading}
-                                onClick={() => {
-                                    navigate(`/dashboard/edit-course/${course._id}`)
-                                }}
-                                title='Edit'
-                                className=' px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300'
+                                    disabled={loading}
+                                    onClick={() => {
+                                        navigate(`/dashboard/edit-course/${course._id}`)
+                                    }}
+                                    title='Edit'
+                                    className=' px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300'
                                 >
                                     <FiEdit2 size={20}/>
                                 </button>
+
                                 <button 
-                                title='Delete'
-                                className='px-2 transition-all duration-200 hover:scale-110 hover:text-pink-300'
+                                    disabled={loading}
+                                    onClick={() => {
+                                        setConfirmationModal({
+                                            text1: "Do you want to delete this course?",
+                                            text2: "All the data related to this course will be deleted",
+                                            btn1Text: !loading ? "Delete" : "Loading...",
+                                            btn2Text: "Cancel"
+                                        })
+                                    }}
+                                    title='Delete'
+                                    className='px-2 transition-all duration-200 hover:scale-110 hover:text-pink-300'
                                 >
                                     <MdDelete size={20}/>
                                 </button>
@@ -110,6 +122,7 @@ const CourseTable = ({courses, setCourses}) => {
             }
         </Tbody>
     </Table>
+    {confirmationModal && <ConfirmationModal modaldata={confirmationModal} />}
     </>
   )
 }
