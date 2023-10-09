@@ -16,6 +16,10 @@ const CourseTable = ({courses, setCourses}) => {
     const [confirmationModal, setConfirmationModal] = useState(null);
     const navigate = useNavigate();
 
+    const handleCourseDelete = () => {
+        
+    }
+
   return (
     <>
     <Table className="rounded-xl border border-richblack-800" >
@@ -107,7 +111,9 @@ const CourseTable = ({courses, setCourses}) => {
                                             text1: "Do you want to delete this course?",
                                             text2: "All the data related to this course will be deleted",
                                             btn1Text: !loading ? "Delete" : "Loading...",
-                                            btn2Text: "Cancel"
+                                            btn2Text: "Cancel",
+                                            btn1Handler: !loading ? () => handleCourseDelete(course._id) : () => {},
+                                            btn2Handler: !loading ? () => setConfirmationModal(null) : () => {}
                                         })
                                     }}
                                     title='Delete'
