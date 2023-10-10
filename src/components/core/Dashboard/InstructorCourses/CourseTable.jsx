@@ -9,15 +9,25 @@ import {FiEdit2} from "react-icons/fi"
 import {MdDelete} from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
 import ConfirmationModal from '../../../common/ConfirmationModal'
+import { useSelector } from 'react-redux'
+import { deleteCourse, fetchInstructorCourses } from '../../../../services/operation/courseDetailsAPI'
 
 const CourseTable = ({courses, setCourses}) => {
 
+    const {token} = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(false);
     const [confirmationModal, setConfirmationModal] = useState(null);
     const navigate = useNavigate();
 
-    const handleCourseDelete = () => {
-        
+    const handleCourseDelete = async (courseId) => {
+        setLoading(true)
+        await deleteCourse({courseId: courseId}, token)
+        const result = await fetchInstructorCourses(token)
+        if(result){
+            setCourses(result)
+        }
+        setConfirmationModal(null)
+        setLoading(false)
     }
 
   return (
