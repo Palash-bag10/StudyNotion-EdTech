@@ -226,3 +226,48 @@ exports.getInstructorCourse = async (req, res) => {
         })
     }
 }
+
+// Delete Courses Handler Function
+exports.deleteCourse = async (req, res) => {
+    try{
+
+        // get course id from req body
+        const {courseId} = req.body;
+
+        // find the course
+        const course = await Course.findById(courseId)
+
+        // check if there is any course present or not
+        if(!course){
+            return res.status(404).json({
+                message: "Course not found",
+            })
+        }
+
+        // Unenrolled student from the courses
+        const studentsEnrolled = course.studentEnrolled
+
+        for(const studentId of studentsEnrolled){
+            await User.findByIdAndUpdate(studentId, {
+                $pull: {courses: courseId},
+            })
+        }
+
+        // Delete the course
+        await Course.findByIdAndDelete(courseId)
+
+        // Return Response
+        return res.status(200).json({
+            success: true,
+            message: "Course Deleted Successfully",
+        })
+
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error: error.message,
+        })
+    }
+}
