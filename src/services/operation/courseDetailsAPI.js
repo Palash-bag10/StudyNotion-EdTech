@@ -7,6 +7,7 @@ const{
     CREATE_COURSE_API,
     EDIT_COURSE_API,
     GET_ALL_INSTRUCTOR_COURSES_API,
+    DELETE_COURSE_API,
 } = courseEndPoints
 
 
@@ -97,4 +98,23 @@ export const fetchInstructorCourses = async (token) => {
     }
     toast.dismiss(toastId)
     return result
+}
+
+// Delete a course
+export const deleteCourse = async (token, data) => {
+    const toastId = toast.loading("Loading...")
+    try{
+        const response = await apiConnector("DELETE", DELETE_COURSE_API, data, {
+            Authorization: `Bearer: ${token}`,
+        })
+        console.log("DELETE COURSE API RESPONSE.....", response)
+        if(!response?.data?.success){
+            throw new Error("Could not Delete Course")
+        }
+        toast.success("Course Deleted")
+    }catch(error){
+        console.log("DELETE COURSE API ERROR....", error)
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
 }
