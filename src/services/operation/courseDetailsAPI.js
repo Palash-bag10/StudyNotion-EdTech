@@ -101,7 +101,7 @@ export const fetchInstructorCourses = async (token) => {
 }
 
 // Delete a course
-export const deleteCourse = async (token, data) => {
+export const deleteCourse = async (data, token) => {
     const toastId = toast.loading("Loading...")
     try{
         const response = await apiConnector("DELETE", DELETE_COURSE_API, data, {
