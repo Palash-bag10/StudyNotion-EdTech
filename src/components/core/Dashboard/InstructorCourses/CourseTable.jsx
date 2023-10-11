@@ -18,6 +18,7 @@ const CourseTable = ({courses, setCourses}) => {
     const [loading, setLoading] = useState(false);
     const [confirmationModal, setConfirmationModal] = useState(null);
     const navigate = useNavigate();
+    const TRUNCATE_LENGTH = 30
 
     const handleCourseDelete = async (courseId) => {
         setLoading(true)
@@ -76,7 +77,10 @@ const CourseTable = ({courses, setCourses}) => {
                                         {course?.courseName}
                                     </p>
                                     <p className='text-xs text-richblack-300'>
-                                        {course?.courseDescription}
+                                        {course?.courseDescription.split(" ").length > TRUNCATE_LENGTH  
+                                            ? course?.courseDescription.split(" ").slice(0, TRUNCATE_LENGTH).join(" ") + "..."
+                                            : course?.courseDescription
+                                        }
                                     </p>
                                     <p className='text-[12px] text-white'>
                                         Created: {formatDate(course.createdAt)}
