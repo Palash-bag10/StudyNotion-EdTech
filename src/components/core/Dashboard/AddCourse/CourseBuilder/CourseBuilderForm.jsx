@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import IconButton from '../../../../common/IconButton';
 import {AiOutlinePlusCircle} from "react-icons/ai"
+import { useSelector } from 'react-redux';
 
 const CourseBuilderForm = () => {
 
   const [editSectionName, setEditSectionName] = useState(null)
+  const {course} = useSelector((state) => state.course);
 
     const {
         register,
@@ -58,6 +60,10 @@ const CourseBuilderForm = () => {
           )}
         </div>
       </form> 
+
+      {course.courseContent.length > 0 && (
+        {/* <NestedView /> */}
+      )}
     </div>
   )
 }
