@@ -14,6 +14,11 @@ const CourseBuilderForm = () => {
         formState: { errors },
     } = useForm();
 
+    const cancelEdit = () => {
+      setEditSectionName(null);
+      setValue("sectionName", "");
+    }
+
   return (
     <div>
       <p>Course Builder</p>
@@ -34,13 +39,23 @@ const CourseBuilderForm = () => {
           )}
         </div>
 
-        <div className='mt-5'>
+        <div className='mt-5 flex gap-x-4'>
           <IconButton
             type="submit" 
             text={editSectionName ? "Edit Section Name" : "Create Section"}
           >
             <AiOutlinePlusCircle/>
           </IconButton>
+
+          {editSectionName && (
+            <button
+            type='button'
+            onClick={cancelEdit}
+            className='text-sm text-richblack-300 underline'
+            >
+              Cancel Edit
+            </button>
+          )}
         </div>
       </form> 
     </div>
