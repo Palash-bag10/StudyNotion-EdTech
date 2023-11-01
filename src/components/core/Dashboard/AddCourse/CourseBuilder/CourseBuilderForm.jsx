@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import IconButton from '../../../../common/IconButton';
 import {AiOutlinePlusCircle} from "react-icons/ai"
-import { useSelector } from 'react-redux';
+import {MdKeyboardArrowRight} from "react-icons/md"
+import { useDispatch, useSelector } from 'react-redux';
+import { setEditCouse, setStep } from '../../../../../slices/courseSlice';
+import toast from 'react-hot-toast';
 
 const CourseBuilderForm = () => {
 
   const [editSectionName, setEditSectionName] = useState(null)
   const {course} = useSelector((state) => state.course);
+  const dispatch = useDispatch();
 
     const {
         register,
@@ -19,6 +23,24 @@ const CourseBuilderForm = () => {
     const cancelEdit = () => {
       setEditSectionName(null);
       setValue("sectionName", "");
+    }
+
+    const goBack = () => {
+      dispatch(setStep(1));
+      dispatch(setEditCouse(true));
+    }
+
+    const goToNext = () => {
+      if(course.courseContent.length === 0){
+        toast.error("Please add atleast One Section");
+        return;
+      }
+      if(course.courseContent.some((section) => section.SubSection.length === 0)) {
+        toast.error("Please Add atleast one lecture in each section");
+        return;
+      }
+      // If everything is good
+      dispatch(setStep(3))
     }
 
   return (
@@ -64,6 +86,13 @@ const CourseBuilderForm = () => {
       {course.courseContent.length > 0 && (
         {/* <NestedView /> */}
       )}
+
+      <div className='flex justify-end gap-x-3'>
+        <button onclick={goBack}>Back</button>
+        <IconButton text="Next" onclick={goToNext}>
+        <MdKeyboardArrowRight/> 
+        </IconButton>
+      </div>
     </div>
   )
 }
