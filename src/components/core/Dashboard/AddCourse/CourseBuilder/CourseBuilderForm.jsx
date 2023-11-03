@@ -74,6 +74,16 @@ const CourseBuilderForm = () => {
       dispatch(setStep(3))
     }
 
+    const handleChangeEditSectionName = (sectionId, sectionName) => {
+      if(editSectionName === sectionId){
+        cancelEdit();
+        return;
+      }
+
+      setEditSectionName(sectionId);
+      setValue("sectionName", sectionName);
+    }
+
   return (
     <div>
       <p>Course Builder</p>
@@ -115,7 +125,7 @@ const CourseBuilderForm = () => {
       </form> 
 
       {course.courseContent.length > 0 && (
-        {/* <NestedView /> */}
+        <NestedView handleChangeEditSectionName={handleChangeEditSectionName}/>
       )}
 
       <div className='flex justify-end gap-x-3'>
