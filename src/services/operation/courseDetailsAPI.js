@@ -1,7 +1,6 @@
 import toast from "react-hot-toast"
 import { apiConnector } from "../apiconnector"
 import { courseEndPoints } from "../apis"
-import { async } from "q"
 
 const{
     COURSE_CATEGORIES_API,
@@ -173,7 +172,7 @@ export const deleteSection = async(data, token) => {
     let result = null
     const toastId = toast.loading("Loading....")
     try{
-        const response = await apiConnector("DELETE", DELETE_SECTION_API, data, {
+        const response = await apiConnector("POST", DELETE_SECTION_API, data, {
             Authorization: `Bearer ${token}`,
         })
         console.log("DELETE SECTION API RESPONSE....", response)
