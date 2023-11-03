@@ -4,14 +4,17 @@ import IconButton from '../../../../common/IconButton';
 import {AiOutlinePlusCircle} from "react-icons/ai"
 import {MdKeyboardArrowRight} from "react-icons/md"
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditCouse, setStep } from '../../../../../slices/courseSlice';
+import { setCourse, setEditCouse, setStep } from '../../../../../slices/courseSlice';
 import toast from 'react-hot-toast';
+import { createSection, updateSection } from '../../../../../services/operation/courseDetailsAPI';
 
 const CourseBuilderForm = () => {
 
   const [editSectionName, setEditSectionName] = useState(null)
   const {course} = useSelector((state) => state.course);
   const dispatch = useDispatch();
+  const {token} = useSelector((state) => state.auth)
+  const [loading, setLoading] = useState(false)
 
     const {
         register,
@@ -19,6 +22,34 @@ const CourseBuilderForm = () => {
         setValue,
         formState: { errors },
     } = useForm();
+
+    const onSubmit = async (data) => {
+      setLoading(true);
+      let result;
+
+      if(editSectionName){
+        // We are Editing the Section Name
+        result = await updateSection({
+          sectionName: data.sectionName,
+          sectionId: editSectionName,
+          courseId: course._id,
+        },token)
+      }
+      else{
+        result = await createSection({
+          sectionName: data.sectionName,
+          courseId: course._id,
+        }, token)
+      }
+
+      if(result){
+        dispatch(setCourse(result));
+        setEditSectionName(null);
+        setValue("sectionName", "");
+      }
+
+      setLoading(false)
+    }
 
     const cancelEdit = () => {
       setEditSectionName(null);
@@ -46,7 +77,7 @@ const CourseBuilderForm = () => {
   return (
     <div>
       <p>Course Builder</p>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div> 
           <label htmlFor="sectionName">
             Section Name<sup>*</sup>
