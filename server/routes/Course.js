@@ -21,13 +21,13 @@ router.delete("/deleteCourse", deleteCourse);
 
 // SECTION
 router.post("/createSection",auth, isInstructor, createSection);
-router.put("/updateSection",auth, isInstructor, updateSection);
-router.delete("/deleteSection",auth, isInstructor, deleteSection);
+router.post("/updateSection",auth, isInstructor, updateSection);
+router.post("/deleteSection",auth, isInstructor, deleteSection);
 
 // SUB-SECTION
 router.post("/createSubSection", auth, isInstructor, createSubSection);
-router.put("/updateSubsection", auth, isInstructor, updateSubsection);
-router.delete("/deleteSubsection", auth, isInstructor, deleteSubsection);
+router.post("/updateSubsection", auth, isInstructor, updateSubsection);
+router.post("/deleteSubsection", auth, isInstructor, deleteSubsection);
 
 // CATEGORY
 router.post("/createCategory", auth, isAdmin, createCategory);
