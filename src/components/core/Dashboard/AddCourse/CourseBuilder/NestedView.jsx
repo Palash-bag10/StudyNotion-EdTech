@@ -22,6 +22,12 @@ const NestedView = ({handleChangeEditSectionName}) => {
 
     }
 
+    const handleDeleteSubSection = (subSectionId, sectionId) => {
+
+    }
+
+
+
   return (
     <>
       <div className="rounded-lg bg-richblack-700 p-6 px-8"
@@ -61,6 +67,44 @@ const NestedView = ({handleChangeEditSectionName}) => {
 
                     </div>
                 </summary>
+
+                {/* Sub-Section Field */}
+                <div>
+                    {section.subSection.map((data) => (
+                        <div key={data?._id}
+                        onClick={() => setViewSubSection(data)}
+                        className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2">
+                            <div className="flex items-center gap-x-3">
+                                <RxDropdownMenu className="text-2xl text-richblack-50"/>
+                                <p className="font-semibold text-richblack-50">{data.title}</p>
+                            </div>
+
+                            <div
+                            className="flex items-center gap-x-3">
+                                <button
+                                onClick={() => setEditSubSection({...data, sectionId: section._id})}
+                                >
+                                    <MdEdit className="text-xl text-richblack-300"/>
+                                </button>
+
+                                <button
+                                onClick={() => {
+                                setConfirmationModal({
+                                text1: "Delete this Sub-Section?",
+                                text2: "Selected lecture will be deleted",
+                                btn1Text: "Delete",
+                                btn2Text: "Cancel",
+                                btn1Handler: () => handleDeleteSubSection(data._id, section._id),
+                                btn2Handler: () => setConfirmationModal(null),
+                                })
+                                }}
+                                >
+                                    <FaTrash className="text-xl text-richblack-300"/>
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </details>
         ))}
       </div>
