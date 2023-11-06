@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {RxDropdownMenu} from "react-icons/rx"
 import {MdEdit} from "react-icons/md"
 import {FaTrash} from "react-icons/fa"
-import {AiFillCaretDown} from "react-icons/ai"
+import {AiFillCaretDown, AiOutlinePlus} from "react-icons/ai"
 
 const NestedView = ({handleChangeEditSectionName}) => {
 
@@ -104,6 +104,15 @@ const NestedView = ({handleChangeEditSectionName}) => {
                             </div>
                         </div>
                     ))}
+
+                    {/* Add Lecture Button */}
+                    <button
+                    onClick={setAddSubSection(section._id)}
+                    className="mt-3 flex items-center gap-x-1 text-yellow-50"
+                    >
+                        <AiOutlinePlus />
+                        <p>Add Lecture</p>
+                    </button>
                 </div>
             </details>
         ))}
