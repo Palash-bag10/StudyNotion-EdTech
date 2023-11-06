@@ -117,6 +117,12 @@ const NestedView = ({handleChangeEditSectionName}) => {
             </details>
         ))}
       </div>
+
+      {addSubSection ? (<SubSectionModal />) 
+      : viewSubSection ? (<SubSectionModal />) 
+      : editSubSection ? (<SubSectionModal />) 
+      : ( <div></div> )}
+      
     </>
   )
 }
