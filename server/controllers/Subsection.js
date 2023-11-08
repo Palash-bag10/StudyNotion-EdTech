@@ -108,7 +108,7 @@ exports.deleteSubsection = async(req, res) => {
         return res.status(200).json({
             success: true,
             message: "Sub-Section Deleted Successfully",
-            subSectionDetails,
+            // subSectionDetails,
         })
 
     }catch(error){
