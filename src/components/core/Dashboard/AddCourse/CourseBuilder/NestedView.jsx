@@ -6,7 +6,7 @@ import {MdEdit} from "react-icons/md"
 import {FaTrash} from "react-icons/fa"
 import {AiFillCaretDown, AiOutlinePlus} from "react-icons/ai"
 import SubSectionModal from './SubSectionModal';
-import { deleteSection } from '../../../../../services/operation/courseDetailsAPI';
+import { deleteSection, deleteSubsection } from '../../../../../services/operation/courseDetailsAPI';
 import { setCourse } from '../../../../../slices/courseSlice';
 
 const NestedView = ({handleChangeEditSectionName}) => {
@@ -34,8 +34,14 @@ const NestedView = ({handleChangeEditSectionName}) => {
         setConfirmationModal(null)
     }
 
-    const handleDeleteSubSection = (subSectionId, sectionId) => {
-
+    const handleDeleteSubSection = async(subSectionId, sectionId) => {
+        const result = await deleteSubsection({
+            subSectionId, sectionId, token
+        })
+        if(result) {
+            dispatch(setCourse(result))
+        }
+        setConfirmationModal(null)
     }
 
 
