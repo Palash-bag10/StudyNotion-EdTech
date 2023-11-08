@@ -5,6 +5,7 @@ import {RxDropdownMenu} from "react-icons/rx"
 import {MdEdit} from "react-icons/md"
 import {FaTrash} from "react-icons/fa"
 import {AiFillCaretDown, AiOutlinePlus} from "react-icons/ai"
+import SubSectionModal from './SubSectionModal';
 
 const NestedView = ({handleChangeEditSectionName}) => {
 
@@ -118,11 +119,26 @@ const NestedView = ({handleChangeEditSectionName}) => {
         ))}
       </div>
 
-      {addSubSection ? (<SubSectionModal />) 
-      : viewSubSection ? (<SubSectionModal />) 
-      : editSubSection ? (<SubSectionModal />) 
+      {addSubSection ? (<SubSectionModal 
+        modalData={addSubSection}
+        setModalData={setAddSubSection}
+        add={true}
+      />) 
+      : viewSubSection ? (<SubSectionModal 
+        modalData={viewSubSection}
+        setModalData={setViewSubSection}
+        view={true}
+      />) 
+      : editSubSection ? (<SubSectionModal 
+        modalData={editSubSection}
+        setModalData={setEditSubSection}
+        edit={true}
+      />) 
       : ( <div></div> )}
-      
+
+      {/* Render Confirmation Modal */}
+      {confirmationModal ? (<confirmationModal modalData={confirmationModal}/>) : ( <div></div> )}
+
     </>
   )
 }
