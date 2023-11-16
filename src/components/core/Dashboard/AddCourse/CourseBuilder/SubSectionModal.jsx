@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSubSection, updateSubsection } from '../../../../../services/operation/courseDetailsAPI';
 import { setCourse } from '../../../../../slices/courseSlice';
+import {RxCross2} from "react-icons/rx"
 
 
 const SubSectionModal = ({
@@ -109,7 +110,14 @@ const SubSectionModal = ({
 
   return (
     <div>
-      
+      <div>
+        <div>
+          <p> {view && "Viewing"} {add && "Adding"} {edit && "Editing"} Lecture </p>
+          <button onClick={() => (!loading ? setModalData(null) : {})}>
+            <RxCross2 />
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
