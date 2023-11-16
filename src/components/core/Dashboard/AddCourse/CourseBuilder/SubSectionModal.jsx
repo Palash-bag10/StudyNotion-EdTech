@@ -6,6 +6,7 @@ import { createSubSection, updateSubsection } from '../../../../../services/oper
 import { setCourse } from '../../../../../slices/courseSlice';
 import {RxCross2} from "react-icons/rx"
 import MediaUpload from '../MediaUpload';
+import IconButton from '../../../../common/IconButton';
 
 
 const SubSectionModal = ({
@@ -141,7 +142,7 @@ const SubSectionModal = ({
                {...register("lectureTitle", {required: true})}
                className='form-style w-full'
               />
-              {...errors.lectureTitle && (
+              {errors.lectureTitle && (
                 <span className="ml-2 text-xs tracking-wide text-pink-200">Lecture Title is Required</span>
               )}
             </div>
@@ -156,10 +157,20 @@ const SubSectionModal = ({
                 {...register("lectureDesc", {required: true})}
                 className=' form-style resize-x-none min-h-[130px] w-full'
               />
-              {...errors.lectureDesc && (
+              {errors.lectureDesc && (
                 <span className="ml-2 text-xs tracking-wide text-pink-200">Lecture Description is Required</span>
               )}
             </div>
+
+            {
+              !view && (
+                <div className="flex justify-end">
+                  <IconButton 
+                    text={loading ? "Loading..." : edit ? "Save Changes" : "Save"}
+                  />
+                </div>
+              )
+            }
         </form>
       </div>
     </div>
