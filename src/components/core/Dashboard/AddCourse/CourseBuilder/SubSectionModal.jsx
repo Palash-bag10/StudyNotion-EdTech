@@ -145,6 +145,21 @@ const SubSectionModal = ({
                 <span className="ml-2 text-xs tracking-wide text-pink-200">Lecture Title is Required</span>
               )}
             </div>
+
+            <div className="flex flex-col space-y-2">
+              <label 
+              htmlFor="lectureDesc"
+              className="text-sm text-richblack-5">Lecture Description</label>
+              <textarea 
+                id="lectureDesc"
+                placeholder='Enter Lecture Description'
+                {...register("lectureDesc", {required: true})}
+                className=' form-style resize-x-none min-h-[130px] w-full'
+              />
+              {...errors.lectureDesc && (
+                <span className="ml-2 text-xs tracking-wide text-pink-200">Lecture Description is Required</span>
+              )}
+            </div>
         </form>
       </div>
     </div>
