@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSubSection, updateSubsection } from '../../../../../services/operation/courseDetailsAPI';
 import { setCourse } from '../../../../../slices/courseSlice';
 import {RxCross2} from "react-icons/rx"
+import MediaUpload from '../MediaUpload';
 
 
 const SubSectionModal = ({
@@ -117,6 +118,19 @@ const SubSectionModal = ({
             <RxCross2 />
           </button>
         </div>
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <MediaUpload 
+              name="lectureVideo"
+              lable="Lecture Video"
+              register={register}
+              setValue={setValue}
+              errors={errors}
+              video={true}
+              viewData={view ? modalData.videoUrl : null}
+              editData={edit ? modalData.videoUrl : null}
+            />
+        </form>
       </div>
     </div>
   )
