@@ -130,6 +130,21 @@ const SubSectionModal = ({
               viewData={view ? modalData.videoUrl : null}
               editData={edit ? modalData.videoUrl : null}
             />
+
+            <div className="flex flex-col space-y-2">
+              <label 
+              htmlFor="lectureTitle"
+              className="text-sm text-richblack-5">Lecture Title</label>
+              <input 
+               id='lectureTitle'
+               placeholder='Enter Lecture Title'
+               {...register("lectureTitle", {required: true})}
+               className='form-style w-full'
+              />
+              {...errors.lectureTitle && (
+                <span className="ml-2 text-xs tracking-wide text-pink-200">Lecture Title is Required</span>
+              )}
+            </div>
         </form>
       </div>
     </div>
