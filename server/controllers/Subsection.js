@@ -143,9 +143,13 @@ exports.deleteSubsection = async(req, res) => {
             })
         }
 
+        // find the data of updated section
+        const updatedSection = await Section.findById(sectionId).populate("subSection")
+
         //retun response
         return res.status(200).json({
             success: true,
+            data: updatedSection,
             message: "Sub-Section Deleted Successfully"
         })
 
