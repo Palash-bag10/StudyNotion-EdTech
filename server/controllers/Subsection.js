@@ -94,25 +94,42 @@ exports.updateSubsection = async(req,res) => {
     }
 }
 
-///// HOME WORK [CHECK LATER] /////
 // DELETE SUB_SECTION HANDLER FUNCTION
 exports.deleteSubsection = async(req, res) => {
     try{
 
         //get Id
-        const {sectionId} = req.params;
+        const {sectionId, subSectionId} = req.body;
+
+        // Update Corresponding Section by Pulling spacified subSection
+        await Section.findByIdAndUpdate(
+            {_id: sectionId},
+            {
+                $pull: {
+                    subSection: subSectionId,
+                },
+            }
+        )
 
         //use FindByIdAndDelete
-        await SubSection.findByIdAndDelete(sectionId);
+        const subSection =  await SubSection.findByIdAndDelete({_id: subSectionId});
+        
+        // check subSection Validation
+        if(!subSection){
+            return res.status(404).json({
+                success: false,
+                message: "SubSection not found", 
+            })
+        }
 
         //retun response
         return res.status(200).json({
             success: true,
-            message: "Sub-Section Deleted Successfully",
-            // subSectionDetails,
+            message: "Sub-Section Deleted Successfully"
         })
 
     }catch(error){
+        console.error(error)
         return res.status(500).json({
             success: false,
             message: "Unable to delete sub-section, Please Try Again",
