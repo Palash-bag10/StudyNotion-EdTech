@@ -67,22 +67,42 @@ exports.updateSubsection = async(req,res) => {
         // Fetch Data
         const {sectionId, title, description} = req.body;
 
-        //data Validation
-        if(!sectionId || !title || !description){
-            return res.status(400).json({
+        // Find Subsection using spacified section Id
+        const subSection = await SubSection.findById(sectionId);
+
+        //check subsection validation
+        if(!subSection){
+            return res.status(404).json({
                 success: false,
-                message: "Missing Property"
+                message: "SubSection not found",
             })
         }
 
-        // update Data
-        const subSection = await SubSection.findByIdAndUpdate(sectionId, title, description, {new: true})
+        // update the title and description in subsection
+        if(title !== undefined){
+            subSection.title = title
+        }
+        if(description !== undefined){
+            subSection.description = description
+        }
 
+        //check if the video is present then upload the video to cloudinary
+        if(req.files && req.files.video !== undefined){
+            const video = req.files.video
+            const uploadDetails = await uploadImageToCloudinary(
+                video,
+                process.env.FOLDER_NAME
+            )
+            subSection.videoUrl = uploadDetails.secure_url
+            subSection.timeDuration = `${uploadDetails.duration}`
+        }
+
+        await subSection.save()
+        
         // return response
         return res.status(200).json({
             success: true,
             message: "Sub-Section Updated Successfully",
-            subSection,
         })
 
     }catch(error){
@@ -93,6 +113,7 @@ exports.updateSubsection = async(req,res) => {
         });
     }
 }
+
 
 // DELETE SUB_SECTION HANDLER FUNCTION
 exports.deleteSubsection = async(req, res) => {
