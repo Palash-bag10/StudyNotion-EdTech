@@ -6,26 +6,27 @@ exports.createSubSection = async(req,res) => {
     try{
 
         // Fetch data
-        const {sectionId, title, timeDuration, description} = req.body;
+        const {sectionId, title, description} = req.body;
 
         // extract file/video
-        const video = req.files.videoFile;
+        const video = req.files.video;
 
         // validation
-        if(!sectionId || !title || !timeDuration || !description || !video){
-            return res.status(400).json({
+        if(!sectionId || !title || !description || !video){
+            return res.status(404).json({
                 success: false,
                 message: "All fields are required",
             })
         }
+        console.log(video)
 
         // upload video to cloudinary
         const uploadDetails = await uploadImageToCloudinary(video, process.env.FOLDER_NAME);
 
         // Create a sub-section
-        const subSectionDetails = await SubSection.create({
+        const SubSectionDetails = await SubSection.create({
             title: title,
-            timeDuration: timeDuration,
+            timeDuration: `${uploadDetails.duration}`,
             description: description,
             videoUrl: uploadDetails.secure_url,
         });
@@ -35,7 +36,7 @@ exports.createSubSection = async(req,res) => {
             {_id: sectionId},
             {
                 $push: {
-                    subSection: subSectionDetails._id,
+                    subSection: SubSectionDetails._id,
                 }
             },
             {new: true}

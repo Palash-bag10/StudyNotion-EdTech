@@ -60,7 +60,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
 
                     <div className="flex items-center gap-x-3">
                         <button
-                        onClick={handleChangeEditSectionName(section._id, section.sectionName)}
+                        onClick={() => handleChangeEditSectionName(section._id, section.sectionName)}
                         >
                             <MdEdit className="text-xl text-richblack-300"/>
                         </button>
@@ -106,7 +106,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
                                 </button>
 
                                 <button
-                                onClick={() => {
+                                onClick={() => 
                                 setConfirmationModal({
                                 text1: "Delete this Sub-Section?",
                                 text2: "Selected lecture will be deleted",
@@ -115,7 +115,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
                                 btn1Handler: () => handleDeleteSubSection(data._id, section._id),
                                 btn2Handler: () => setConfirmationModal(null),
                                 })
-                                }}
+                                }
                                 >
                                     <FaTrash className="text-xl text-richblack-300"/>
                                 </button>
@@ -125,7 +125,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
 
                     {/* Add Lecture Button */}
                     <button
-                    onClick={setAddSubSection(section._id)}
+                    onClick={() => setAddSubSection(section._id)}
                     className="mt-3 flex items-center gap-x-1 text-yellow-50"
                     >
                         <AiOutlinePlus />

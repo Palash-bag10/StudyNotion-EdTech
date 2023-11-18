@@ -126,7 +126,7 @@ const CourseBuilderForm = () => {
         </div>
       </form> 
 
-      {course.courseContent.length > 0 && (
+      {course?.courseContent?.length > 0 && (
         <NestedView handleChangeEditSectionName={handleChangeEditSectionName}/>
       )}
 
