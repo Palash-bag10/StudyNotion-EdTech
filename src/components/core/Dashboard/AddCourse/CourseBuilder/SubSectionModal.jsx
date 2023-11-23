@@ -71,8 +71,9 @@ const SubSectionModal = ({
     // CALL API
     const result = await updateSubsection(formData, token);
     if(result){
-      // TODO:: check for updation
-      dispatch(setCourse(result));
+      const updatedCourseContent = course.courseContent.map((section) => section._id === modalData.sectionId ? result : section);
+      const updatedCourse = {...course, courseContent: updatedCourseContent};
+      dispatch(setCourse(updatedCourse));
     }
     setModalData(null);
     setLoading(false);
@@ -103,8 +104,9 @@ const SubSectionModal = ({
     const result = await createSubSection(formData, token);
 
     if(result){
-      // TODO:: check for updation
-      dispatch(setCourse(result))
+      const updatedCourseContent = course.courseContent.map((section) => section._id === modalData ? result : section);
+      const updatedCourse = {...course, courseContent: updatedCourseContent};
+      dispatch(setCourse(updatedCourse))
     }
     setModalData(null)
     setLoading(false)

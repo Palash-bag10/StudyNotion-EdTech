@@ -56,10 +56,10 @@ exports.updateSection = async(req, res) => {
     try{
 
         // Fetch Data
-        const {sectionName, sectionId} = req.body;
+        const {sectionName, sectionId, courseId} = req.body;
 
         // Data Validation
-        if(!sectionName || !sectionId){
+        if(!sectionName || !sectionId || !courseId){
             return res.status(400).json({
                 success: false,
                 message: "Missing Property",
@@ -69,18 +69,27 @@ exports.updateSection = async(req, res) => {
         // Update data
         const section = await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true});
 
+        // Find the course and get the all details about its content 
+        const course = await Course.findById(courseId)
+        .populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection",
+            },
+        }).exec();
+
         // Return response
         return res.status(200).json({
             success: true,
-            message: "Section Updated Successfully",
-            section,
+            message: section,
+            data: course,
         })
 
     }catch(error){
+		console.error("Error updating section:", error);
         return res.status(500).json({
             success: false,
             message: "Unable to update section, Please Try Again",
-            error:error.message,
         });
     }
 }
