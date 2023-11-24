@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import IconButton from "../../../../common/IconButton";
 
 
 
@@ -23,6 +24,10 @@ export default function PublishCourse(){
 
     }
 
+    const goBack = () => {
+
+    }
+
     return(
         <div className=" bg-richblack-800 border-richblack-700 p-6 rounded-md border-[1px]">
          <p className=" text-richblack-5 font-semibold text-2xl">Publish Course</p>
@@ -38,6 +43,17 @@ export default function PublishCourse(){
 
                     <span className=" ml-2 text-richblack-400">Make this Course Public</span>
               </label>
+            </div>
+
+            <div className=" ml-auto flex items-center max-w-max gap-x-4">
+                <button
+                disabled={loading}
+                type="button"
+                onClick={goBack}
+                className=" flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-2 px-5 font-semibold text-richblack-900 ">
+                    Back
+                </button>
+                <IconButton disabled={loading} text="Save & Publish"/>
             </div>
          </form>
         </div>
