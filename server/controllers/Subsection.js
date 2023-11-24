@@ -65,10 +65,10 @@ exports.updateSubsection = async(req,res) => {
     try{
 
         // Fetch Data
-        const {sectionId, title, description} = req.body;
+        const {sectionId, subSectionId, title, description} = req.body;
 
-        // Find Subsection using spacified section Id
-        const subSection = await SubSection.findById(sectionId);
+        // Find Subsection using spacified sub-section Id
+        const subSection = await SubSection.findById(subSectionId);
 
         //check subsection validation
         if(!subSection){
