@@ -100,6 +100,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
                             </div>
 
                             <div
+                            onClick={(e) => e.stopPropagation()}
                             className="flex items-center gap-x-3">
                                 <button
                                 onClick={() => setEditSubSection({...data, sectionId: section._id})}
