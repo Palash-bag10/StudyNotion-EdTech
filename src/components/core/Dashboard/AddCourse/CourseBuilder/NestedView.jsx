@@ -8,6 +8,7 @@ import {AiFillCaretDown, AiOutlinePlus} from "react-icons/ai"
 import SubSectionModal from './SubSectionModal';
 import { deleteSection, deleteSubsection } from '../../../../../services/operation/courseDetailsAPI';
 import { setCourse } from '../../../../../slices/courseSlice';
+import ConfirmationModal from '../../../../common/ConfirmationModal';
 
 const NestedView = ({handleChangeEditSectionName}) => {
 
@@ -67,7 +68,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
                         </button>
 
                         <button
-                        onClick={() => {
+                        onClick={() => 
                             setConfirmationModal({
                                 text1: "Delete this Section?",
                                 text2: "All the lectures in this section will be deleted",
@@ -76,7 +77,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
                                 btn1Handler: () => handleDeleteSection(section._id),
                                 btn2Handler: () => setConfirmationModal(null),
                             })
-                        }}
+                        }
                         >
                             <FaTrash className="text-xl text-richblack-300"/>
                         </button>
@@ -138,24 +139,24 @@ const NestedView = ({handleChangeEditSectionName}) => {
       </div>
 
       {addSubSection ? (<SubSectionModal 
-        modalData={addSubSection}
-        setModalData={setAddSubSection}
+        modaldata={addSubSection}
+        setmodaldata={setAddSubSection}
         add={true}
       />) 
       : viewSubSection ? (<SubSectionModal 
-        modalData={viewSubSection}
-        setModalData={setViewSubSection}
+        modaldata={viewSubSection}
+        setmodaldata={setViewSubSection}
         view={true}
       />) 
       : editSubSection ? (<SubSectionModal 
-        modalData={editSubSection}
-        setModalData={setEditSubSection}
+        modaldata={editSubSection}
+        setmodaldata={setEditSubSection}
         edit={true}
       />) 
-      : ( <div></div> )}
+      : ( <></> )}
 
       {/* Render Confirmation Modal */}
-      {confirmationModal ? (<confirmationModal modalData={confirmationModal}/>) : ( <div></div> )}
+      {confirmationModal ? (<ConfirmationModal modaldata={confirmationModal}/>) : ( <></> )}
 
     </>
   )

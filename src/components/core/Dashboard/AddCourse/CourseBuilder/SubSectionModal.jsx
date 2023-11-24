@@ -10,8 +10,8 @@ import IconButton from '../../../../common/IconButton';
 
 
 const SubSectionModal = ({
-  modalData,
-  setModalData,
+  modaldata,
+  setmodaldata,
   add = false,
   view = false,
   edit = false,
@@ -32,17 +32,17 @@ const SubSectionModal = ({
 
   useEffect(() => {
     if(view || edit){
-      setValue("lectureTitle", modalData.title);
-      setValue("lectureDesc", modalData.description);
-      setValue("lectureVideo", modalData.videoUrl);
+      setValue("lectureTitle", modaldata.title);
+      setValue("lectureDesc", modaldata.description);
+      setValue("lectureVideo", modaldata.videoUrl);
     }
   },[]);
 
   const isFormUpdated = () => {
     const currentValues = getValues();
-    if(currentValues.lectureTitle !== modalData.title ||
-      currentValues.lectureDesc !== modalData.description ||
-      currentValues.lectureVideo !== modalData.videoUrl){
+    if(currentValues.lectureTitle !== modaldata.title ||
+      currentValues.lectureDesc !== modaldata.description ||
+      currentValues.lectureVideo !== modaldata.videoUrl){
         return true;
       }
     else{
@@ -54,16 +54,16 @@ const SubSectionModal = ({
     const currentValues = getValues();
     const formData = new FormData();
 
-    formData.append("sectionId", modalData.sectionId);
-    formData.append("subSectionId", modalData._id);
+    formData.append("sectionId", modaldata.sectionId);
+    formData.append("subSectionId", modaldata._id);
 
-    if(currentValues.lectureTitle !== modalData.title){
+    if(currentValues.lectureTitle !== modaldata.title){
       formData.append("title", currentValues.lectureTitle);
     }
-    if(currentValues.lectureDesc !== modalData.description){
+    if(currentValues.lectureDesc !== modaldata.description){
       formData.append("description", currentValues.lectureDesc);
     }
-    if(currentValues.lectureVideo !== modalData.videoUrl){
+    if(currentValues.lectureVideo !== modaldata.videoUrl){
       formData.append("video", currentValues.lectureVideo);
     }
     setLoading(true)
@@ -71,11 +71,11 @@ const SubSectionModal = ({
     // CALL API
     const result = await updateSubsection(formData, token);
     if(result){
-      const updatedCourseContent = course.courseContent.map((section) => section._id === modalData.sectionId ? result : section);
+      const updatedCourseContent = course.courseContent.map((section) => section._id === modaldata.sectionId ? result : section);
       const updatedCourse = {...course, courseContent: updatedCourseContent};
       dispatch(setCourse(updatedCourse));
     }
-    setModalData(null);
+    setmodaldata(null);
     setLoading(false);
 
   }
@@ -94,7 +94,7 @@ const SubSectionModal = ({
     }
 
     const formData = new FormData();
-    formData.append("sectionId", modalData);
+    formData.append("sectionId", modaldata);
     formData.append("title", data.lectureTitle);
     formData.append("description", data.lectureDesc);
     formData.append("video", data.lectureVideo);
@@ -104,11 +104,11 @@ const SubSectionModal = ({
     const result = await createSubSection(formData, token);
 
     if(result){
-      const updatedCourseContent = course.courseContent.map((section) => section._id === modalData ? result : section);
+      const updatedCourseContent = course.courseContent.map((section) => section._id === modaldata ? result : section);
       const updatedCourse = {...course, courseContent: updatedCourseContent};
       dispatch(setCourse(updatedCourse))
     }
-    setModalData(null)
+    setmodaldata(null)
     setLoading(false)
   }
 
@@ -117,7 +117,7 @@ const SubSectionModal = ({
       <div>
         <div>
           <p> {view && "Viewing"} {add && "Adding"} {edit && "Editing"} Lecture </p>
-          <button onClick={() => (!loading ? setModalData(null) : {})}>
+          <button onClick={() => (!loading ? setmodaldata(null) : {})}>
             <RxCross2 />
           </button>
         </div>
@@ -130,8 +130,8 @@ const SubSectionModal = ({
               setValue={setValue}
               errors={errors}
               video={true}
-              viewData={view ? modalData.videoUrl : null}
-              editData={edit ? modalData.videoUrl : null}
+              viewData={view ? modaldata.videoUrl : null}
+              editData={edit ? modaldata.videoUrl : null}
             />
 
             <div className="flex flex-col space-y-2">
