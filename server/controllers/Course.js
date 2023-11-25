@@ -121,6 +121,79 @@ exports.createCourse = async (req, res) => {
     }
 }
 
+// editCourse Handler function
+exports.editCourse = async(req, res) => {
+    try{
+
+        // fetch courseId and updates from req body
+        const {courseId} = req.body;
+        const updates = req.body;
+
+        // find the course and validate
+        const course = await Course.findById(courseId)
+
+        if(!course){
+            return res.status(404).json({
+                error: "Course not found"
+            })
+        }
+
+        // if thumbnail is found then update it
+        if(req.files){
+            console.log("Thubnail update")
+            const thumbnail = req.files.thumbnailImage
+            const thumbnailImage = await uploadImageToCloudinary(
+                thumbnail,
+                process.env.FOLDER_NAME
+            )
+            course.thumbnail = thumbnailImage.secure_url
+        }
+
+        // Update only the fields that are present in the request body
+        for(const key in updates){
+            if(updates.hasOwnProperty(key)){
+                if(key === "tag" || key ==="instructions"){
+                    course[key] = JSON.parse(updates[key])
+                } else{
+                    course[key] = updates[key]
+                }
+            }
+        }
+        await course.save()
+
+        // fetch the updated course with additional details and populate the related field
+        const updatedCourse = await Course.findOne({
+            _id: courseId,
+        }).populate({
+            path: "instructor",
+            populate: {
+                path: "additionalDetails",
+            },
+        }).populate("category")
+        .populate("ratingAndReviews")
+        .populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection",
+            },
+        }).exec()
+
+        // return response and pass updatedCourse data
+        return res.status(200).json({
+            success: true,
+            message: "Course Created Successfully",
+            data: updatedCourse,
+        })
+
+    } catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Internal server Error",
+            error: error.message,
+        })
+    }
+}
+
 // getAllCourse Handler Function 
 exports.showAllCourses = async (req, res) => {
     try{
