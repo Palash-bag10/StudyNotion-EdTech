@@ -280,3 +280,21 @@ export const fetchCourseDetails = async (courseId) => {
     toast.dismiss(toastId)
     return result
 }
+
+export const getAllCourse = async () => {
+    const toastId = toast.loading("Loading...")
+    let result = []
+    try{
+        const response = await apiConnector("GET", GET_ALL_COURSE_API)
+
+        if(!response?.data?.success){
+            throw new Error("Could not fetch course catagories")
+        }
+        result = response?.data?.data
+    } catch(error){
+        console.log("GET ALL COURSE API ERROR", error)
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+    return result
+}
