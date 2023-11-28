@@ -14,6 +14,9 @@ const{
     DELETE_SUBSECTION_API,
     CREATE_SUBSECTION_API,
     UPDATE_SUBSECTION_API,
+    COURSE_DETAILS_API,
+    GET_ALL_COURSE_API,
+    GET_FULL_COURSE_DETAILS_AUTHENTICATED,
 } = courseEndPoints
 
 
@@ -251,6 +254,68 @@ export const updateSubsection = async(data, token) => {
     }catch(error){
         console.log("UPDATE SUB SECTION API ERROR....", error)
         toast.error(toastId)
+    }
+    toast.dismiss(toastId)
+    return result
+}
+
+// fetching course details
+export const fetchCourseDetails = async (courseId) => {
+    const toastId = toast.loading("Loading...");
+    let result = null
+    try{
+        const response = await apiConnector("POST", COURSE_DETAILS_API, {
+            courseId,
+        })
+        console.log("COURSE DETAILS API RESPONSE", response)
+
+        if(!response.data.success){
+            throw new Error(response.data.message)
+        }
+        result = response.data
+    }catch(error){
+        console.log("COURSE DETAILS API ERROR", error)
+        result = error.response.data
+    }
+    toast.dismiss(toastId)
+    return result
+}
+
+export const getAllCourse = async () => {
+    const toastId = toast.loading("Loading...")
+    let result = []
+    try{
+        const response = await apiConnector("GET", GET_ALL_COURSE_API)
+
+        if(!response?.data?.success){
+            throw new Error("Could not fetch course catagories")
+        }
+        result = response?.data?.data
+    } catch(error){
+        console.log("GET ALL COURSE API ERROR", error)
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+    return result
+}
+
+// get full details of a course
+export const getFullDetailsOfCourse = async (courseId, token) => {
+    const toastId = toast.loading("Loading...")
+    let result = null
+    try{
+        const response = await apiConnector("POST", GET_FULL_COURSE_DETAILS_AUTHENTICATED, {courseId,}, {
+            Authorization: `Bearer ${token}`,
+        })
+        console.log("COURSE FULL DETAILS API RESPONSE", response)
+
+        if(!response.data.success){
+            throw new Error(response.data.message)
+        }
+        result = response?.data?.data
+    }catch(error){
+        console.log("COURSE FULL DETAILS API ERROR", error)
+        result = error.response.data
     }
     toast.dismiss(toastId)
     return result

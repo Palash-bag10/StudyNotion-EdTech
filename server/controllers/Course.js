@@ -2,6 +2,8 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const Category = require("../models/Category");
 const {uploadImageToCloudinary} = require("../utils/imageUploader");
+const CourseProgress = require("../models/CourseProgress");
+const { convertSecondsToDuration } = require("../utils/secToDuration");
 
 // cerateCourse Handler function
 exports.createCourse = async (req, res) => {
@@ -118,6 +120,148 @@ exports.createCourse = async (req, res) => {
             message: "Failed to create course",
             error:error.message,
         });
+    }
+}
+
+// editCourse Handler function
+exports.editCourse = async(req, res) => {
+    try{
+
+        // fetch courseId and updates from req body
+        const {courseId} = req.body;
+        const updates = req.body;
+
+        // find the course and validate
+        const course = await Course.findById(courseId)
+
+        if(!course){
+            return res.status(404).json({
+                error: "Course not found"
+            })
+        }
+
+        // if thumbnail is found then update it
+        if(req.files){
+            console.log("Thubnail update")
+            const thumbnail = req.files.thumbnailImage
+            const thumbnailImage = await uploadImageToCloudinary(
+                thumbnail,
+                process.env.FOLDER_NAME
+            )
+            course.thumbnail = thumbnailImage.secure_url
+        }
+
+        // Update only the fields that are present in the request body
+        for(const key in updates){
+            if(updates.hasOwnProperty(key)){
+                if(key === "tag" || key ==="instructions"){
+                    course[key] = JSON.parse(updates[key])
+                } else{
+                    course[key] = updates[key]
+                }
+            }
+        }
+        await course.save()
+
+        // fetch the updated course with additional details and populate the related field
+        const updatedCourse = await Course.findOne({
+            _id: courseId,
+        }).populate({
+            path: "instructor",
+            populate: {
+                path: "additionalDetails",
+            },
+        }).populate("category")
+        .populate("ratingAndReviews")
+        .populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection",
+            },
+        }).exec()
+
+        // return response and pass updatedCourse data
+        return res.status(200).json({
+            success: true,
+            message: "Course Created Successfully",
+            data: updatedCourse,
+        })
+
+    } catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Internal server Error",
+            error: error.message,
+        })
+    }
+}
+
+// getFullCourseDetails handler function
+exports.getFullCourseDetails = async(req,res) => {
+    try{
+
+        //fetch course id from req body and fetch user id from req user id
+        const {courseId} = req.body
+        const userId = req.user.id
+
+        // find course with spacific course id and populate the various field
+        const courseDetails = await Course.findOne({
+            _id: courseId,
+        }).populate({
+            path: "instructor",
+            populate: {
+                path: "additionalDetails",
+            },
+        }).populate("category")
+        .populate("ratingAndReviews")
+        .populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection",
+            },
+        }).exec()
+
+        // find course progress count using spacified courseId and userId
+        let courseProgressCount = await CourseProgress.findOne({
+            courseID: courseId,
+            userId: userId,
+        })
+        console.log("courseProgressCount : ", courseProgressCount)
+
+        // validate Course Details
+        if(!courseDetails) {
+            return res.status(400).json({
+                success: false,
+                message: `Could not find course with id: ${courseId}`,
+            })
+        }
+
+        // Calculate total duration of the course
+        let totalDurationInSeconds = 0
+        courseDetails.courseContent.forEach((content) => {
+            content.subSection.forEach((subSection) => {
+                const timeDurationInSeconds = parseInt(subSection.timeDuration)
+                totalDurationInSeconds += timeDurationInSeconds
+            })
+        })
+
+        const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
+        // return response
+        return res.status(200).json({
+            success: true,
+            data: {
+                courseDetails,
+                totalDuration,
+                completedVideos: courseProgressCount?.completedVideos ? courseProgressCount?.completedVideos : [],
+            },
+        })
+
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        })
     }
 }
 

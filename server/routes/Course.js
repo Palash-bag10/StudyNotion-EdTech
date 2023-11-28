@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // IMPORT CONTROLLERS
-const {createCourse, showAllCourses, getCourseDetails, getInstructorCourse, deleteCourse} = require("../controllers/Course");
+const {createCourse, showAllCourses, getCourseDetails, getInstructorCourse, deleteCourse, editCourse, getFullCourseDetails} = require("../controllers/Course");
 const {createCategory, showAllCategories, categoryPageDetails} = require("../controllers/Category");
 const {createSection, updateSection, deleteSection} = require("../controllers/Section");
 const {createSubSection, updateSubsection, deleteSubsection} = require("../controllers/Subsection");
@@ -18,6 +18,8 @@ router.get("/showAllCourses", showAllCourses);
 router.post("/getCourseDetails", getCourseDetails);
 router.get("/getInstructorCourse", auth, isInstructor, getInstructorCourse);
 router.delete("/deleteCourse", deleteCourse);
+router.post("/editCourse", auth, isInstructor, editCourse );
+router.post("/getFullCourseDetails", auth, getFullCourseDetails);
 
 // SECTION
 router.post("/createSection",auth, isInstructor, createSection);
