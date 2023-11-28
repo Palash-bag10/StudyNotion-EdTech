@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import RenderAddCoursesteps from "../AddCourse/RenderAddCourseSteps"
 import { useEffect } from "react"
-import { getFullCourseDetails } from "../../../../../server/controllers/Course"
 import { getFullDetailsOfCourse } from "../../../../services/operation/courseDetailsAPI"
 import { setCourse, setEditCouse } from "../../../../slices/courseSlice"
 
