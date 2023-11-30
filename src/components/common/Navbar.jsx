@@ -24,20 +24,22 @@ const Navbar = () => {
     const [subLinks, setSubLinks] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // const fetchSublinks = async() => {
-    //   try{
-    //     const result = await apiConnector("GET", categories.CATEGORIES_API);
-    //     console.log("Printing Sublink Result:", result);
-    //     setSubLinks(result.data.data);
-    //   } catch(error){
-    //     console.log("Could not fetch the Category List");
-    //   }
-    // }
+    const fetchSublinks = async() => {
+      setLoading(true)
+      try{
+        const result = await apiConnector("GET", categories.CATEGORIES_API);
+        console.log("Printing Sublink Result:", result);
+        setSubLinks(result.data.data);
+      } catch(error){
+        console.log("Could not fetch the Category List");
+      }
+      setLoading(false)
+    }
 
-    // // Call Api
-    // useEffect( () => {
-    //   fetchSublinks();
-    // }, [])
+    // Call Api
+    useEffect( () => {
+      fetchSublinks();
+    }, [])
 
     const matchRoute = (route) => {
         return matchPath({path:route}, location.pathname)
