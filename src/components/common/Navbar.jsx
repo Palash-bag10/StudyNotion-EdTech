@@ -12,19 +12,6 @@ import ProfileDropDown from '../core/Auth/ProfileDropDown'
 import { apiConnector } from '../../services/apiconnector'
 import { categories } from '../../services/apis'
 
-const subLinks = [
-  {
-    title: "python",
-    link: "/catalog/python"
-  },
-  {
-    title: "Web dev",
-    link: "/catalog/web-development"
-  },
-  
-]
-
-
 const Navbar = () => { 
 
     const {token} = useSelector( (state) => state.auth );
@@ -34,7 +21,8 @@ const Navbar = () => {
     const location = useLocation();
 
     // sublinks = python, web dev etc..
-    // const [subLinks, setSubLinks] = useState([]);
+    const [subLinks, setSubLinks] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     // const fetchSublinks = async() => {
     //   try{
@@ -70,58 +58,49 @@ const Navbar = () => {
       </Link>
 
       {/* Nav links */}
-      <nav>
+      <nav className=' hidden md:block'>
         <ul className=' flex gap-x-6 text-richblue-25'>
-            {
-                NavbarLinks.map((link, index) => {
-                    return (
-                        <li key={index}>
-                            {/* Make a condition for CATALOG link and rest of link  */}
-                            {
-                                link.title === "Catalog"
-                                ? ( 
+          {
+            NavbarLinks.map((link, index) => {
+              return (
+                <li key={index}>
+                  {/* Make a condition for CATALOG link and rest of link  */}
+                  {
+                    link.title === "Catalog"
+                    ? (<div className={`relative flex items-center gap-1 cursor-pointer group ${matchRoute("/catalog/:catalogName") ? " text-yellow-25" : " text-richblack-25"}`}>
+                        <p> {link?.title} </p>
+                        <BsFillCaretDownFill/>
+                        <div className=' invisible absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[50%] flex flex-col w-[200px] rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 z-[1000] transition-all duration-200 group-hover:visible group-hover:opacity-100 group-hover:translate-y-[1.65em] lg:w-[300px]   '>
+                          <div className=' absolute left-[50%] top-0 translate-x-[80%] translate-y-[-20%] h-6 w-6 rotate-45 select-none rounded bg-richblack-5  '>
+                          </div>
 
-                                    <div className=' relative flex items-center gap-1 cursor-pointer group'>
-                                      <p> {link?.title} </p>
-                                      <BsFillCaretDownFill/>
-
-                                      <div className=' invisible absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[50%] flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 z-50 transition-all duration-200 group-hover:visible group-hover:opacity-100 w-[300px]   '>
-                                        <div className=' absolute left-[50%] top-0 translate-x-[80%] translate-y-[-20%] h-6 w-6 rotate-45 rounded bg-richblack-5  '>
-                                        </div>
-
-                                        {
-                                          subLinks.length
-                                          ? (
-                                              
-                                                subLinks.map((sublink, index) => {
-                                                  return (
-                                                    <Link to={`${sublink.link}`} key={index}>
-                                                      <p> {sublink.title} </p>
-                                                    </Link>
-                                                  )
-                                                })
-                                              
-                                            ) 
-                                          : ( <div></div> )
-                                        }
-
-                                      </div>
-
-                                    </div> 
-                                  
-                                  ) 
-                                : ( 
-                                    <Link to={link.path}>
-                                        <p className={`${matchRoute(link?.path) ? " text-yellow-25" : " text-richblack-25" }`}>
-                                            {link.title}
-                                        </p>
-                                    </Link> 
-                                  )
-                            }
-                        </li>
-                    )
-                })
-            }
+                          {loading 
+                          ? ( <p className='text-center'>Loading...</p> )
+                          : subLinks.length ? (
+                            <>
+                              {subLinks?.filter((subLink) => subLink?.course?.length > 0) ?.map((subLink, i) => (
+                                <Link to={`/catalog/${subLink.name.split(" ").join("-").toLowerCase()}`}
+                                key={i}
+                                className=' rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50'>
+                                  <p>{subLink.name}</p>
+                                </Link>
+                              ))}
+                            </>
+                          ) : ( <p className=' text-center'>No Courses Found</p> )}
+                        </div>
+                      </div> 
+                      ) 
+                      : (
+                        <Link to={link?.path}>
+                          <p className={`${
+                            matchRoute(link?.path) ? " text-yellow-25" : " text-richblack-25"
+                          }`}>
+                            {link.title}
+                          </p>
+                        </Link>
+                      )}
+                </li>
+                )})}
         </ul>
       </nav>
 
