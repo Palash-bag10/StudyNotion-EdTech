@@ -62,7 +62,7 @@ const RenderAddCoursesteps = () => {
       <div>
         {
           steps.map((item) => (
-            <>
+ 
             <div
             key={item.id}
             >
@@ -70,7 +70,7 @@ const RenderAddCoursesteps = () => {
                 {item.title}
               </p>
             </div>
-            </>
+            
           ))
         }
       </div>

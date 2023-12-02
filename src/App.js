@@ -35,8 +35,8 @@ function App() {
       <Routes>
 
         <Route path="/" element={<Home/>} />
+        <Route path="catalog/:catalogName" element={<Catalog/>} />
         <Route path="/contact" element={<Contact/>} />
-        <Route path="/catalog/:catalogName" element={<Catalog/>} />
         <Route
           path="signup" 
           element={

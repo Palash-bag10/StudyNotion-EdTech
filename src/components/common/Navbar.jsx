@@ -24,22 +24,21 @@ const Navbar = () => {
     const [subLinks, setSubLinks] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchSublinks = async() => {
-      setLoading(true)
-      try{
-        const result = await apiConnector("GET", categories.CATEGORIES_API);
-        console.log("Printing Sublink Result:", result);
-        setSubLinks(result.data.data);
-      } catch(error){
-        console.log("Could not fetch the Category List");
-      }
-      setLoading(false)
-    }
-
-    // Call Api
-    useEffect( () => {
-      fetchSublinks();
+    useEffect(() => {
+      ;(async () => {
+        setLoading(true)
+        try{
+          const res = await apiConnector("GET", categories.CATEGORIES_API)
+          console.log("RES...: ", res)
+          setSubLinks(res.data.data)
+          console.log("Sublinks ", subLinks)
+        } catch(error){
+          console.log("Could not fetch Categories", error)
+        }
+        setLoading(false)
+      })()
     }, [])
+
 
     const matchRoute = (route) => {
         return matchPath({path:route}, location.pathname)
@@ -63,14 +62,14 @@ const Navbar = () => {
       <nav className=' hidden md:block'>
         <ul className=' flex gap-x-6 text-richblue-25'>
           {
-            NavbarLinks.map((link, index) => {
-              return (
+            NavbarLinks.map((link, index) => (
+              
                 <li key={index}>
                   {/* Make a condition for CATALOG link and rest of link  */}
                   {
-                    link.title === "Catalog"
-                    ? (<div className={`relative flex items-center gap-1 cursor-pointer group ${matchRoute("/catalog/:catalogName") ? " text-yellow-25" : " text-richblack-25"}`}>
-                        <p> {link?.title} </p>
+                    link.title === "Catalog" ? (
+                      <div className={`relative flex items-center gap-1 cursor-pointer group ${matchRoute("/catalog/:catalogName") ? " text-yellow-25" : " text-richblack-25"}`}>
+                        <p> {link.title} </p>
                         <BsFillCaretDownFill/>
                         <div className=' invisible absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[50%] flex flex-col w-[200px] rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 z-[1000] transition-all duration-200 group-hover:visible group-hover:opacity-100 group-hover:translate-y-[1.65em] lg:w-[300px]   '>
                           <div className=' absolute left-[50%] top-0 translate-x-[80%] translate-y-[-20%] h-6 w-6 rotate-45 select-none rounded bg-richblack-5  '>
@@ -80,7 +79,10 @@ const Navbar = () => {
                           ? ( <p className='text-center'>Loading...</p> )
                           : subLinks.length ? (
                             <>
-                              {subLinks?.filter((subLink) => subLink?.course?.length > 0) ?.map((subLink, i) => (
+                              {subLinks
+                              ?.filter(
+                                (subLink) => subLink?.course?.length > 0) 
+                                ?.map((subLink, i) => (
                                 <Link to={`/catalog/${subLink.name.split(" ").join("-").toLowerCase()}`}
                                 key={i}
                                 className=' rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50'>
@@ -102,7 +104,7 @@ const Navbar = () => {
                         </Link>
                       )}
                 </li>
-                )})}
+                ))}
         </ul>
       </nav>
 
