@@ -14,6 +14,10 @@ export const categories = {
     CATEGORIES_API: BASE_URL + "/course/showAllCategories"
 }
 
+export const catalogData = {
+    CATALOGPAGEDATA_API: BASE_URL + "/course/categoryPageDetails",
+}
+
 export const contactusEndpoints = {
     CONTACT_US_API: BASE_URL + "/reach/contact",
 }

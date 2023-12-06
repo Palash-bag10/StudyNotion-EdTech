@@ -18,7 +18,7 @@ export function updateDisplayPictue(token, formData){
         const toastId = toast.loading("Loading...")
         try{
             const response = await apiConnector("PUT", UPDATE_PROFILE_PICTURE_API, formData, {
-                "content-type": "multipart/form-data",
+                "Content-type": "multipart/form-data",
                 Authorization: `Bearer ${token}`,
             })
             console.log("UPDATE_PROFILE_PICTURE_API", response)

@@ -37,7 +37,7 @@ exports.createSection = async (req, res) => {
         // HW(DONE): use POPULATE to replace section/sub-sections both in the updatedCourseDetails
 
         // Return Response
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "Section Created Successfully",
             updatedCourseDetails,
@@ -138,7 +138,7 @@ exports.deleteSection = async (req, res) => {
         }).exec();
 
         // return response
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "Section Deleted Successfully",
             data: course,
@@ -146,7 +146,7 @@ exports.deleteSection = async (req, res) => {
 
     }catch(error){
 		console.error("Error deleting section:", error);
-        return res.status(500).json({
+        res.status(500).json({
             success: false,
             message: "Unable to delete section, Please Try Again",
         });

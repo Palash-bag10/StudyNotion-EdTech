@@ -44,7 +44,9 @@ const EnrollCourses = () => {
               {/* CARD */}
               {
                 enrolledCourses.map((course, index) => (
-                  <div>
+                  <div
+                  key={index}
+                  >
                     <div>
                       <img src={course.thumbnail} />
                       <div>

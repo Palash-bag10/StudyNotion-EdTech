@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { useDropzone } from 'react-dropzone'
 import {FiUpload} from 'react-icons/fi'
 import { Player } from 'video-react'
+import "video-react/dist/video-react.css"
 
 const MediaUpload = ({
     name,
@@ -82,7 +83,7 @@ const MediaUpload = ({
                       setSelectedFile(null)
                       setValue(name, null)
                     }}
-                    >Cancle</button>
+                    >Cancel</button>
                   )
                 }
               </div>

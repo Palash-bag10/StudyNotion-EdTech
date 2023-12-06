@@ -170,7 +170,7 @@ const ContactUsForm = () => {
             </div>
           </div>
           {
-            errors.message && (
+            errors.phoneNo && (
                 <span className="-mt-1 text-[12px] text-yellow-100"> {errors.phoneNo.message} </span>
             )
           }

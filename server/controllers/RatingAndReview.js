@@ -117,7 +117,7 @@ exports.getAverageRating = async (req, res) => {
 exports.getAllRating = async (req, res) => {
     try{
 
-        const allreviews = await RatingAndReview.find({})
+        const allReviews = await RatingAndReview.find({})
                                 .sort({rating: "desc"})
                                 .populate({
                                     path: "user",
@@ -132,7 +132,7 @@ exports.getAllRating = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "All reviews fetched successfully",
-            data: allreviews,
+            data: allReviews,
         });
 
     } catch (error) {

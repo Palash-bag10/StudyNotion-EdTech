@@ -61,7 +61,7 @@ const CourseInformationForm = () => {
       currentValues.coursePrice !== course.price ||
       currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
-      currentValues.courseCategory !== course.category ||
+      currentValues.courseCategory._id !== course.category._id ||
       currentValues.courseRequirments.toString() !== course.instructions.toString() ||
       currentValues.courseImage !== course.thumbnail
     ) return true;
@@ -90,8 +90,8 @@ const CourseInformationForm = () => {
             formData.append("price", data.coursePrice);
           }
 
-          if(currentValues.courseTags !== course.tag) {
-            formData.append("tag", data.courseTags);
+          if(currentValues.courseTags.toString() !== course.tag.toString()) {
+            formData.append("tag", JSON.stringify(data.courseTags));
           }
 
           if(currentValues.courseBenefits !== course.whatYouWillLearn) {
@@ -292,6 +292,7 @@ const CourseInformationForm = () => {
           editCourse && (
             <button
             onClick={() => dispatch(setStep(2))}
+            disabled={loading}
             >
               Continue Without Saving
             </button>
@@ -299,6 +300,7 @@ const CourseInformationForm = () => {
         }
 
         <IconButton
+        disabled={loading}
           text={!editCourse ? "Next" : "Save Changes"}
         />
       </div>

@@ -26,7 +26,8 @@ const NestedView = ({handleChangeEditSectionName}) => {
         const result = await deleteSection({
             sectionId,
             courseId: course._id,
-        }, token)
+            token,
+        },)
 
         if(result){
             dispatch(setCourse(result))
@@ -140,24 +141,24 @@ const NestedView = ({handleChangeEditSectionName}) => {
       </div>
 
       {addSubSection ? (<SubSectionModal 
-        modaldata={addSubSection}
-        setmodaldata={setAddSubSection}
+        modalData={addSubSection}
+        setModalData={setAddSubSection}
         add={true}
       />) 
       : viewSubSection ? (<SubSectionModal 
-        modaldata={viewSubSection}
-        setmodaldata={setViewSubSection}
+        modalData={viewSubSection}
+        setModalData={setViewSubSection}
         view={true}
       />) 
       : editSubSection ? (<SubSectionModal 
-        modaldata={editSubSection}
-        setmodaldata={setEditSubSection}
+        modalData={editSubSection}
+        setModalData={setEditSubSection}
         edit={true}
       />) 
       : ( <></> )}
 
       {/* Render Confirmation Modal */}
-      {confirmationModal ? (<ConfirmationModal modaldata={confirmationModal}/>) : ( <></> )}
+      {confirmationModal ? (<ConfirmationModal modalData={confirmationModal}/>) : ( <></> )}
 
     </>
   )

@@ -64,7 +64,7 @@ const SideBar = () => {
                 </button>
             </div>
         </div>
-        {confirmationModal && <ConfirmationModal modaldata={confirmationModal} />}
+        {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
     </>
   )
 }

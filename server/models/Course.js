@@ -14,7 +14,7 @@ const courseSchema = new mongoose.Schema({
     instructor: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User",
+        ref: "user",
     },
     whatYouWillLearn: {
         type: String,
@@ -50,7 +50,7 @@ const courseSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: "User",
+            ref: "user",
         }
     ],
     instructions: {

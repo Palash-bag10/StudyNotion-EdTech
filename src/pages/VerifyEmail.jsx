@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import OTPInput from 'react-otp-input';
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'; 
 import {BsArrowLeftShort} from 'react-icons/bs'
 import {BiRotateLeft} from 'react-icons/bi'
 import { sendotp, signUp } from '../services/operation/authAPI';
+import OTPInput from 'react-otp-input';
 
 const VerifyEmail = () => {
 

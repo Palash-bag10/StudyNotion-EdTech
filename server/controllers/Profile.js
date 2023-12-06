@@ -64,8 +64,8 @@ exports.deleteAccount = async (req, res) => {
         const id = req.user.id;
 
         // validation
-        const userDetails = await User.findById({ _id: id });
-        if(!userDetails){
+        const user = await User.findById({ _id: id });
+        if(!user){
             return res.status(400).json({
                 success: false,
                 message: "User Not Found",
@@ -73,7 +73,7 @@ exports.deleteAccount = async (req, res) => {
         }
 
         // delete Profile
-        await Profile.findByIdAndDelete({_id:userDetails.additionalDetails});
+        await Profile.findByIdAndDelete({_id:user.additionalDetails});
 
         // TODO: HW--> Unenroll user from all enrolled Course(PENDING)
         

@@ -47,7 +47,7 @@ const RenderAddCoursesteps = () => {
               </div>
 
               {
-                step.id !== step.length && (
+                item.id !== steps.length && (
                   <>
                     <div className={`${step > item.id ? " border-yellow-50" : " border-richblack-500"}`}>
                     </div>

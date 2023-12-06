@@ -62,6 +62,6 @@ const userSchema = new mongoose.Schema({
     ],
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("user", userSchema);
 // the main code "User" will small letter "user"
 // check later
