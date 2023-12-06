@@ -3,17 +3,16 @@ const router = express.Router();
 
 // IMPORT CONTROLLERS
 const {
-    capturePayment, 
-    // verifySignature,
+    capturePayment,
     verifyPayment,
-    enrollStudents,
+    sendPaymentSuccessEmail,
 } = require("../controllers/Payment");
 
-const {auth, isStudent, isInstructor, isAdmin} = require("../middlewares/auth");
+const {auth, isStudent} = require("../middlewares/auth");
 
 // DEFINE API ROUTES
 router.post("/capturePayment", auth, isStudent, capturePayment);
-// router.post("/verifysignature", verifySignature);
 router.post("/verifyPayment", auth, isStudent, verifyPayment);
+router.post("/sendPaymentSuccessEmail", auth, isStudent, sendPaymentSuccessEmail);
 
 module.exports = router;
