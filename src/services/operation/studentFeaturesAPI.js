@@ -4,7 +4,6 @@ import { studentEndpoints } from "../apis";
 import rzpLogo from "../../assets/Logo/rzp_logo.png"
 import { setPaymentLoading } from "../../slices/courseSlice";
 import { resetCart } from "../../slices/cartSlice";
-// import { sendPaymentSuccessEmail ,verifyPayment } from "../../../server/controllers/Payment";
 
 const {
     COURSE_PAYMENT_API,
