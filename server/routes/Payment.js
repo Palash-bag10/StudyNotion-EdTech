@@ -12,7 +12,7 @@ const {
 const {auth, isStudent, isInstructor, isAdmin} = require("../middlewares/auth");
 
 // DEFINE API ROUTES
-router.post("/capturepayment", auth, isStudent, capturePayment);
+router.post("/capturePayment", auth, isStudent, capturePayment);
 // router.post("/verifysignature", verifySignature);
 router.post("/verifyPayment", auth, isStudent, verifyPayment);
 
