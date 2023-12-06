@@ -3,7 +3,8 @@ const {instance} = require("../config/razorpay");
 const Course = require("../models/Course");
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
-const {courseEnrollmentEmail} = require ("../mail/templates/courseEnrollmentEmail")
+const {courseEnrollmentEmail} = require ("../mail/templates/courseEnrollmentEmail");
+const { paymentSuccessEmail } = require("../mail/templates/paymentSuccessEmail");
 
 
 exports.capturePayment = async(req, res) => {
@@ -163,10 +164,34 @@ const enrollStudents = async(courses, userId, res) => {
     }
 }
 
+exports.sendPaymentSuccessEmail = async(req, res) => {
+    const {orderId, paymentId, amount} = req.body;
 
+    const userId = req.user.id;
 
+    // validation
+    if(!orderId || !paymentId || !amount || !userId) {
+        return res.status(400).json({
+            success: false,
+            message: "Please provide all the fields"
+        })
+    }
 
-
+    try{
+        const enrolledStudent = await User.findById(userId);
+        await mailSender(
+            enrolledStudent.email,
+            `Payment Recieved`,
+            paymentSuccessEmail(`${enrolledStudent.firstName}`, amount/100, orderId, paymentId)
+        )
+    } catch(error) {
+        console.log("error in sending mail", error)
+        return res.status(500).json({
+            success:false, 
+            message:"Could not send email"
+        })
+    }
+}
 
 
 
