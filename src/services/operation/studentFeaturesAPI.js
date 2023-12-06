@@ -1,5 +1,8 @@
-const { studentEndpoints } = require("../apis");
-
+import toast from "react-hot-toast";
+import { apiConnector } from "../apiconnector";
+import { studentEndpoints } from "../apis";
+import rzpLogo from "../../assets/Logo/rzp_logo.png"
+import { verifyPayment } from "../../../server/controllers/Payment";
 
 const {
     COURSE_PAYMENT_API,
@@ -20,4 +23,58 @@ function loadScript(src) {
         }
         document.body.appendChild(script)
     })
+}
+
+export async function buyCourse(token, courses, userDetails, navigate, dispatch) {
+    const toastId = toast.loading("Loading...");
+    try{
+        // Load the script
+        const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+
+        // check validation
+        if(!res) {
+            toast.error("RazorPay SDK failed to load");
+            return;
+        }
+
+        // initiate the order
+        const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API,
+        {courses},
+        {
+            Authorization: `Bearer ${token}`,
+        })
+
+        // check validation
+        if(!orderResponse.data.success){
+            throw new Error(orderResponse.data.message);
+        }
+        console.log("PRINTING orderResponse", orderResponse);
+
+        // options
+        const options = {
+            key: process.env.RAZORPAY_KEY,
+            currency: orderResponse.data.message.currency,
+            amount: `${orderResponse.data.message.amount}`,
+            order_id: orderResponse.data.message.id,
+            name: "StudyNotion",
+            description: "Thank You for Purchasing the Course",
+            image: rzpLogo,
+            prefill: {
+                name: `${userDetails.firstName}`,
+                email: userDetails.email
+            },
+            handler: function (response) {
+                // send successful mail
+                // sendPaymentSuccessEmail(response, orderResponse.data.message.amount, token);
+                // verifyPayment
+                verifyPayment({...response, courses}, token, navigate, dispatch);
+            }
+        }
+
+    } catch(error) {
+        console.log("PAYMENT API ERROR.....", error);
+        toast.error("Could not make Payment");
+    }
+
+    toast.dismiss(toastId);
 }

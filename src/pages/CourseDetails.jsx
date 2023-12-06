@@ -7,7 +7,7 @@ const CourseDetails = () => {
     
     const handleBuyCourse = () => {
         if(token){
-            buyCourse();
+            // buyCourse();
             return;
         }
     }
