@@ -81,6 +81,46 @@ exports.capturePayment = async(req, res) => {
 
 }
 
+// Verify The Payment
+exports.verifyPayment = async(req, res) => {
+
+    // fetch
+    const razorpay_order_id = req.body?.razorpay_order_id;
+    const razorpay_payment_id = req.body?.razorpay_payment_id;
+    const razorpay_signature = req.body?.razorpay_signature;
+    const courses = req.body?.courses;
+    const userId = req.user.id;
+
+    // check Validation
+    if(!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !courses || !userId) {
+        return res.status(200).json({
+            success: false,
+            message: "Payment Failed"
+        });
+    }
+
+    // use SHA256 Algo
+    let body = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_SECRET)
+    .update(body.toString())
+    .digest("hex");
+
+    // compare expected signature and razorpay signature
+    if(expectedSignature === razorpay_signature) {
+        // enroll the student
+
+        // return response
+        return res.status(200).json({
+            success:true, 
+            message:"Payment Verified"});
+    }
+    return res.status(200).json({
+        success:false, 
+        message:"Payment Failed"});
+
+}
+
 
 
 
