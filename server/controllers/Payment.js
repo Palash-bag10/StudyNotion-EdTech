@@ -5,12 +5,14 @@ const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
 const {courseEnrollmentEmail} = require ("../mail/templates/courseEnrollmentEmail");
 const { paymentSuccessEmail } = require("../mail/templates/paymentSuccessEmail");
+const crypto = require("crypto")
 
 
 exports.capturePayment = async(req, res) => {
 
     // fetch courses and userId
     const {courses} = req.body;
+    console.log("courses data: ", courses)
     const userId = req.user.id;
 
     // check validation
@@ -40,7 +42,7 @@ exports.capturePayment = async(req, res) => {
 
           // check user already enrolled the course or not
           const uid = new mongoose.Types.ObjectId(userId);
-          if(course.studentEnrolled.includes(uid)) {
+          if(course.studentsEnrolled.includes(uid)) {
             return res.status(200).json({
                 success: false,
                 message: "Student is already Enrolled",
@@ -59,18 +61,20 @@ exports.capturePayment = async(req, res) => {
     }
 
     // create Options for order
+    const currency = "INR";
     const options = {
         amount: totalAmount * 100,
-        currency: "INR",
+        currency,
         receipt: Math.random(Date.now()).toString(),
     }
 
     // create order
     try{
         const paymentResponse = await instance.orders.create(options);
+        console.log("paymentResponse :", paymentResponse)
         res.json({
             success: true,
-            message: paymentResponse,
+            data: paymentResponse,
         })
     } catch(error) {
         console.log(error)
@@ -102,6 +106,7 @@ exports.verifyPayment = async(req, res) => {
 
     // use SHA256 Algo
     let body = razorpay_order_id + "|" + razorpay_payment_id;
+    console.log("BODY: ", body)
     const expectedSignature = crypto
     .createHmac("sha256", process.env.RAZORPAY_SECRET)
     .update(body.toString())
@@ -134,7 +139,7 @@ const enrollStudents = async(courses, userId, res) => {
             // find the course and enroll the student in it
             const enrolledCourse = await Course.findOneAndUpdate(
                 {_id: courseId},
-                {$push: {studentEnrolled: userId}},
+                {$push: {studentsEnrolled: userId}},
                 {new: true},
             )
 

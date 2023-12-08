@@ -13,7 +13,7 @@ const CourseDetails = () => {
     
     const handleBuyCourse = () => {
         if(token){
-            buyCourse(token, user, dispatch, navigate, [courseId])
+            buyCourse(token, [courseId], user, dispatch, navigate)
             return;
         }
     }
@@ -22,7 +22,7 @@ const CourseDetails = () => {
   return (
     <div className=' flex items-center justify-center'>
       <button 
-      onClick={() => handleBuyCourse()}
+      onClick={handleBuyCourse}
       className=' flex bg-yellow-5 p-4 mt-16'>
         Buy Now
       </button>
