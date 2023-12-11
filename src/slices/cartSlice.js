@@ -2,6 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
 
+// const getCartData = () => {
+//     let localCartData = localStorage.getItem("cart")
+//     if(localCartData === []){
+//         return []
+//     } else{
+//         return JSON.parse(localCartData)
+//     }
+// }
+
 const initialState = {
 
     totalItems : localStorage.getItem("totalItems") 

@@ -8,7 +8,7 @@ const {
     sendPaymentSuccessEmail,
 } = require("../controllers/Payment");
 
-const {auth, isStudent} = require("../middlewares/auth");
+const {auth, isStudent, isAdmin, isInstructor} = require("../middlewares/auth");
 
 // DEFINE API ROUTES
 router.post("/capturePayment", auth, isStudent, capturePayment);

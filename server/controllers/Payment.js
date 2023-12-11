@@ -24,7 +24,7 @@ exports.capturePayment = async(req, res) => {
     }
 
     // Count Total Amount 
-    let totalAmount = 0;
+    let total_amount = 0;
 
     for(const course_id of courses) {
         let course;
@@ -42,7 +42,7 @@ exports.capturePayment = async(req, res) => {
 
           // check user already enrolled the course or not
           const uid = new mongoose.Types.ObjectId(userId);
-          if(course.studentsEnrolled.includes(uid)) {
+          if(course.studentEnrolled.includes(uid)) {
             return res.status(200).json({
                 success: false,
                 message: "Student is already Enrolled",
@@ -50,7 +50,7 @@ exports.capturePayment = async(req, res) => {
           }
 
           // add the course price in total amount
-          totalAmount += course.price;
+          total_amount += course.price;
         } catch(error){
             console.log(error)
             return res.status(500).json({
@@ -61,11 +61,10 @@ exports.capturePayment = async(req, res) => {
     }
 
     // create Options for order
-    const currency = "INR";
     const options = {
-        amount: totalAmount * 100,
-        currency,
-        receipt: Math.random(Date.now()).toString(),
+        "amount": total_amount * 100,
+        "currency": "INR",
+        "receipt": Math.random(Date.now()).toString(),
     }
 
     // create order
@@ -139,7 +138,7 @@ const enrollStudents = async(courses, userId, res) => {
             // find the course and enroll the student in it
             const enrolledCourse = await Course.findOneAndUpdate(
                 {_id: courseId},
-                {$push: {studentsEnrolled: userId}},
+                {$push: {studentEnrolled: userId}},
                 {new: true},
             )
 

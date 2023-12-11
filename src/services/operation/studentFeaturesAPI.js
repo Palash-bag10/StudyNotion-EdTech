@@ -53,18 +53,18 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
 
         // options
         const options = {
-            key: process.env.RAZORPAY_KEY,
-            currency: orderResponse.data.data.currency,
-            amount: `${orderResponse.data.data.amount}`,
-            order_id: orderResponse.data.data.id,
-            name: "StudyNotion",
-            description: "Thank You for Purchasing the Course",
-            image: rzpLogo,
-            prefill: {
-                name: `${userDetails.firstName}`,
-                email: userDetails.email
+            "key": process.env.RAZORPAY_KEY,
+            "currency": orderResponse.data.data.currency,
+            "amount": `${orderResponse.data.data.amount}`,
+            "order_id": orderResponse.data.data.id,
+            "name": "StudyNotion",
+            "description": "Thank You for Purchasing the Course",
+            "image": rzpLogo,
+            "prefill": {
+                "name": `${userDetails.firstName}`,
+                "email": userDetails.email
             },
-            handler: function (response) {
+            "handler": function (response) {
                 // send successful mail
                 sendPaymentSuccessEmail(response, orderResponse.data.data.amount, token);
                 // verifyPayment
