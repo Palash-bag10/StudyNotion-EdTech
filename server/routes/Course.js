@@ -8,6 +8,8 @@ const {createSection, updateSection, deleteSection} = require("../controllers/Se
 const {createSubSection, updateSubsection, deleteSubsection} = require("../controllers/Subsection");
 const {createRating, getAverageRating, getAllRating} = require("../controllers/RatingAndReview");
 
+const {updateCourseProgress} = require("../controllers/courseProgress")
+
 const {auth, isStudent, isInstructor, isAdmin} = require("../middlewares/auth");
 
 // DEFINE API ROUTE
@@ -40,5 +42,8 @@ router.post("/categoryPageDetails", categoryPageDetails);
 router.post("/createRating", auth, isStudent, createRating);
 router.get("/getAverageRating", getAverageRating);
 router.get("/getAllRating", getAllRating);
+
+// COURSE PROGRESS
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
 
 module.exports = router;
