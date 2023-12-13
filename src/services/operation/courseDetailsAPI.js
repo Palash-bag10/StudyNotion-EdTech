@@ -17,6 +17,7 @@ const{
     COURSE_DETAILS_API,
     GET_ALL_COURSE_API,
     GET_FULL_COURSE_DETAILS_AUTHENTICATED,
+    CREATE_RATING_API,
 } = courseEndPoints
 
 
@@ -319,4 +320,27 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
     }
     toast.dismiss(toastId)
     return result
+}
+
+// create a rating for courses
+export const createRating = async(data, token) => {
+    const toastId = toast.loading("Loading...")
+    let success = false
+    try{
+        const response = await apiConnector("POST", CREATE_RATING_API, data, {
+            Authorization: `Bearer ${token}`,
+        })
+        console.log("CREATE RATING API RESPONSE....", response)
+        if(!response?.data?.success) {
+            throw new Error("Could not Create Rating")
+        }
+        toast.success("Rating Created")
+        success = true
+    } catch(error){
+        success = false
+        console.log("CREATE RATING API ERROR....", error)
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+    return success
 }

@@ -104,11 +104,12 @@ exports.verifyPayment = async(req, res) => {
     }
 
     // use SHA256 Algo
-    let body = razorpay_order_id + "|" + razorpay_payment_id;
-    console.log("BODY: ", body)
+    // let body = razorpay_order_id + "|" + razorpay_payment_id;
+    // console.log("BODY: ", body)
     const expectedSignature = crypto
     .createHmac("sha256", process.env.RAZORPAY_SECRET)
-    .update(body.toString())
+    // .update(body.toString())
+    .update(`${razorpay_order_id}|${razorpay_payment_id}`)
     .digest("hex");
 
     // compare expected signature and razorpay signature

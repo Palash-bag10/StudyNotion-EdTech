@@ -51,6 +51,7 @@ export const courseEndPoints = {
     GET_ALL_COURSE_API: BASE_URL + "/course/showAllCourses",
     GET_FULL_COURSE_DETAILS_AUTHENTICATED: BASE_URL + "/course/getFullCourseDetails",
     COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetails",
+    CREATE_RATING_API: BASE_URL + "/course/createRating",
 }
 
 // PAYMENT ENDPOINTS (STUDENTS)
@@ -58,4 +59,8 @@ export const studentEndpoints = {
     COURSE_PAYMENT_API: BASE_URL + "/payment/capturePayment" ,
     COURSE_VERIFY_API: BASE_URL + "/payment/verifyPayment",
     SEND_PAYMENT_SUCCESS_EMAIL_API: BASE_URL + "/payment/sendPaymentSuccessEmail"
+}
+
+export const ratingsEndpoints = {
+    REVIEWS_DETAILS_API: BASE_URL + "/course/getAllRating"
 }

@@ -53,18 +53,19 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
 
         // options
         const options = {
-            "key": process.env.RAZORPAY_KEY,
-            "currency": orderResponse.data.data.currency,
-            "amount": `${orderResponse.data.data.amount}`,
-            "order_id": orderResponse.data.data.id,
-            "name": "StudyNotion",
-            "description": "Thank You for Purchasing the Course",
-            "image": rzpLogo,
-            "prefill": {
-                "name": `${userDetails.firstName}`,
-                "email": userDetails.email
+            // "key": process.env.RAZORPAY_KEY,
+            key: "rzp_test_ZisJZeNEydMnjX",
+            currency: orderResponse.data.data.currency,
+            amount: `${orderResponse.data.data.amount}`,
+            order_id: orderResponse.data.data.id,
+            name: "StudyNotion",
+            description: "Thank You for Purchasing the Course",
+            image: rzpLogo,
+            prefill: {
+                name: `${userDetails.firstName}`,
+                email: userDetails.email
             },
-            "handler": function (response) {
+            handler: function (response) {
                 // send successful mail
                 sendPaymentSuccessEmail(response, orderResponse.data.data.amount, token);
                 // verifyPayment
@@ -101,7 +102,7 @@ async function sendPaymentSuccessEmail (response, amount, token) {
     }
 }
 
-async function verifyPayment (bodyData, token, navigate, dispatch) {
+async function verifyPayment (bodyData, token, dispatch, navigate) {
     const toastId = toast.loading("Verifying Payment...");
     dispatch(setPaymentLoading(true));
     try{
@@ -113,7 +114,7 @@ async function verifyPayment (bodyData, token, navigate, dispatch) {
             throw new Error(response.data.message);
         }
 
-        toast.success("payment Successful, ypou are addded to the course")
+        toast.success("payment Successful, you are addded to the course")
         navigate("/dashboard/enrolled-courses");
         dispatch(resetCart());
     } catch(error) {
