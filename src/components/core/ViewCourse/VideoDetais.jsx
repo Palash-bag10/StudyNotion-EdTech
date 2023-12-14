@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { markLectureAsComplete } from '../../../services/operation/courseDetailsAPI';
+import { updateCompletedLectures } from '../../../slices/viewCourseSlice';
 
 const VideoDetais = () => {
 
@@ -70,15 +72,64 @@ const VideoDetais = () => {
   }
 
   const goToNextVideo = () => {
+    const currentSectionIndex = courseSectionData.findIndex((data) => data._id === sectionId)
 
+    const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
+
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+
+    // check any lecture exist on same section or not
+    if(currentSubSectionIndex !==  noOfSubSections - 1){
+      // go to next video on same section
+      const nextSubSectionId = courseSectionData[currentSectionIndex].subSection[currentSectionIndex + 1]._id;
+      // go to next video
+      navigate(`/view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSectionId}`)
+    } else {
+      // got to next video in diff section
+      const nextSectionId = courseSectionData[currentSectionIndex + 1]._id;
+      const nextSubSectionId = courseSectionData[currentSectionIndex + 1].subsection[0]._id
+      // go to the video
+      navigate(`/view-course/${courseId}/section/${nextSectionId}/sub-section/${nextSubSectionId}`)
+    }
   }
 
   const goToPrevVideo = () => {
+    const currentSectionIndex = courseSectionData.findIndex((data) => data._id === sectionId)
 
+    const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
+
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+
+    // check if current video is not first video
+    if(currentSubSectionIndex !== 0){
+      // same section prev video
+      const prevSubSectionId = courseSectionData[currentSectionIndex].subSection[currentSubSectionIndex - 1];
+      // go to the video
+      navigate(`/view-course/${courseId}/section/${sectionId}/sub-section/${prevSubSectionId}`)
+    } else {
+      // diff section last video
+      const prevSectionId = courseSectionData[currentSectionIndex - 1]._id;
+      const prevSubSectionLength = courseSectionData[currentSectionIndex - 1].subSection.length;
+      const prevSubSectionId = courseSectionData[currentSectionIndex - 1].subsection[prevSubSectionLength - 1]._id
+      // go to the video
+      navigate(`/view-course/${courseId}/section/${prevSectionId}/sub-section/${prevSubSectionId}`)
+    }
   }
 
-  const handleLectureCompletion = () => {
+  const handleLectureCompletion = async () => {
+    setLoading(true)
+    const res = await markLectureAsComplete(
+      {
+        courseId: courseId,
+        subSectionId: subSectionId
+      }, token
+    );
 
+    // state update
+    if(res){
+      dispatch(updateCompletedLectures(subSectionId));
+    }
+    setLoading(false);
   }
 
   return (
