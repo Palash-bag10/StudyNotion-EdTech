@@ -42,7 +42,16 @@ const VideoDetais = () => {
   }, [courseSectionData, courseEntireData, location.pathname])
 
   const isFirstVideo = () => {
-    
+    const currentSectionIndex = courseSectionData.findIndex((data) => data._id === sectionId)
+
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+
+    if(currentSectionIndex === 0 && currentSubSectionIndex === 0){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   const isLastVideo = () => {
