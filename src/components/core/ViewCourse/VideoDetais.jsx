@@ -55,7 +55,18 @@ const VideoDetais = () => {
   }
 
   const isLastVideo = () => {
+    const currentSectionIndex = courseSectionData.findIndex((data) => data._id === sectionId)
 
+    const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
+
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+
+    if(currentSectionIndex === courseSectionData.length - 1 && currentSubSectionIndex === noOfSubSections - 1) {
+      return true
+    }
+    else{
+      return false
+    }
   }
 
   const goToNextVideo = () => {
