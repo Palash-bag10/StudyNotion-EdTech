@@ -201,7 +201,7 @@ exports.getEnrolledCourse = async (req, res) => {
         const userId = req.user.id;
 
         // GET ALL COURSE WITH THIS ID
-        const userDetails = await User.findOne({
+        let userDetails = await User.findOne({
             _id: userId,
         }).populate({
             path: "courses",
@@ -214,7 +214,7 @@ exports.getEnrolledCourse = async (req, res) => {
         }).exec()
 
         //convert userDetails to object
-        //  userDetails = userDetails.toObject()
+         userDetails = userDetails.toObject()
 
         // initialize subsection length with zero
         var SubsectionLength = 0
