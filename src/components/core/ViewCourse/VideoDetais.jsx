@@ -38,7 +38,7 @@ const VideoDetais = () => {
           (course) => course._id === sectionId
         )
 
-        const filterVideoData = filterData?.[0].subsection.filter((data) => data._id === subSectionId)
+        const filterVideoData = filterData?.[0].subSection.filter((data) => data._id === subSectionId)
 
         setVideoData(filterVideoData[0]);
         setVideoEnded(false)
@@ -50,7 +50,7 @@ const VideoDetais = () => {
   const isFirstVideo = () => {
     const currentSectionIndex = courseSectionData.findIndex((data) => data._id === sectionId)
 
-    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subSection.findIndex((data) => data._id === subSectionId)
 
     if(currentSectionIndex === 0 && currentSubSectionIndex === 0){
       return true;
@@ -65,7 +65,7 @@ const VideoDetais = () => {
 
     const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
 
-    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subSection.findIndex((data) => data._id === subSectionId)
 
     if(currentSectionIndex === courseSectionData.length - 1 && currentSubSectionIndex === noOfSubSections - 1) {
       return true
@@ -80,7 +80,7 @@ const VideoDetais = () => {
 
     const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
 
-    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subSection.findIndex((data) => data._id === subSectionId)
 
     // check any lecture exist on same section or not
     if(currentSubSectionIndex !==  noOfSubSections - 1){
@@ -91,7 +91,7 @@ const VideoDetais = () => {
     } else {
       // got to next video in diff section
       const nextSectionId = courseSectionData[currentSectionIndex + 1]._id;
-      const nextSubSectionId = courseSectionData[currentSectionIndex + 1].subsection[0]._id
+      const nextSubSectionId = courseSectionData[currentSectionIndex + 1].subSection[0]._id
       // go to the video
       navigate(`/view-course/${courseId}/section/${nextSectionId}/sub-section/${nextSubSectionId}`)
     }
@@ -102,7 +102,7 @@ const VideoDetais = () => {
 
     const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
 
-    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subsection.findIndex((data) => data._id === subSectionId)
+    const currentSubSectionIndex = courseSectionData[currentSectionIndex].subSection.findIndex((data) => data._id === subSectionId)
 
     // check if current video is not first video
     if(currentSubSectionIndex !== 0){
@@ -114,7 +114,7 @@ const VideoDetais = () => {
       // diff section last video
       const prevSectionId = courseSectionData[currentSectionIndex - 1]._id;
       const prevSubSectionLength = courseSectionData[currentSectionIndex - 1].subSection.length;
-      const prevSubSectionId = courseSectionData[currentSectionIndex - 1].subsection[prevSubSectionLength - 1]._id
+      const prevSubSectionId = courseSectionData[currentSectionIndex - 1].subSection[prevSubSectionLength - 1]._id
       // go to the video
       navigate(`/view-course/${courseId}/section/${prevSectionId}/sub-section/${prevSubSectionId}`)
     }
