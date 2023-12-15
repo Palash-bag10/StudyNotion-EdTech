@@ -1,13 +1,24 @@
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
+const { convertSecondsToDuration } = require("../../src/utils/secToDuration");
+const CourseProgress = require("../models/CourseProgress");
+const { default: mongoose } = require("mongoose");
+const Course = require("../models/Course");
 
 
 exports.updateProfile = async (req, res) => {
     try{
 
         // get Data
-        const {dateOfBirth = "", about = "", contactNumber} = req.body; 
+        const {
+            firstName = "",
+            lastName = "",
+            dateOfBirth = "", 
+            about = "", 
+            contactNumber = "",
+            gender = "",
+        } = req.body; 
 
         // Get userId
         const id = req.user.id;
@@ -26,19 +37,30 @@ exports.updateProfile = async (req, res) => {
         const profileId = userDetails.additionalDetails;
         const profileDetails = await Profile.findById(profileId);
 
+        const user = await User.findByIdAndUpdate(id, {
+            firstName,
+            lastName,
+        })
+        await user.save()
+
         // Update Profile
         profileDetails.dateOfBirth = dateOfBirth;
         profileDetails.about = about;
         profileDetails.contactNumber = contactNumber;
-        // profileDetails.gender = gender;
+        profileDetails.gender = gender;
 
         await profileDetails.save();
+
+        // Find the updated user details
+        const updatedUserDetails = await User.findById(id)
+        .populate("additionalDetails")
+        .exec()
 
         // Return Response
         return res.json({
             success: true,
             message: "Profile Updated Successfully",
-            profileDetails,
+            updatedUserDetails,
         })
 
     }catch(error){
@@ -66,26 +88,35 @@ exports.deleteAccount = async (req, res) => {
         // validation
         const user = await User.findById({ _id: id });
         if(!user){
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 message: "User Not Found",
             });
         }
 
         // delete Profile
-        await Profile.findByIdAndDelete({_id:user.additionalDetails});
+        await Profile.findByIdAndDelete({
+            _id: new mongoose.Types.ObjectId(user.additionalDetails),
+        })
+        for(const courseId of user.courses) {
+            await Course.findByIdAndDelete(
+                courseId,
+                { $pull: {studentEnrolled: id} },
+                { new: true }
+            )
+        }
 
         // TODO: HW--> Unenroll user from all enrolled Course(PENDING)
         
         // delete User
-        await User.findByIdAndDelete({_id:id});
+        await User.findByIdAndDelete({_id:id})
 
         // Return Response
         return res.status(200).json({
             success: true,
-            message: "Account deleted Successfully",
-            
+            message: "Account deleted Successfully",  
         })
+        await CourseProgress.deleteMany({ userId: id })
         
     }catch(error) {
         return res.status(500).json({
@@ -172,7 +203,47 @@ exports.getEnrolledCourse = async (req, res) => {
         // GET ALL COURSE WITH THIS ID
         const userDetails = await User.findOne({
             _id: userId,
-        }).populate("courses").exec()
+        }).populate({
+            path: "courses",
+            populate: {
+                path: "courseContent",
+                populate: {
+                    path: "subSection",
+                },
+            },
+        }).exec()
+
+        //convert userDetails to object
+        //  userDetails = userDetails.toObject()
+
+        // initialize subsection length with zero
+        var SubsectionLength = 0
+
+        for(var i = 0; i < userDetails.courses.length; i++){
+            let totalDurationInSeconds = 0
+            SubsectionLength = 0
+
+            for(var j = 0; j < userDetails.courses[i].courseContent.length; j++){
+                totalDurationInSeconds += userDetails.courses[i].courseContent[j].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
+
+                userDetails.courses[i].totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
+                SubsectionLength += userDetails.courses[i].courseContent[j].subSection.length
+            }
+            let courseProgressCount = await CourseProgress.findOne({
+                courseID: userDetails.courses[i]._id,
+                userId: userId,
+            })
+
+            courseProgressCount = courseProgressCount?.completedVideos.length
+
+            if(SubsectionLength === 0){
+                userDetails.courses[i].progressPercentage = 100
+            } else {
+                const multiplier = Math.pow(10, 2)
+                userDetails.courses[i].progressPercentage = Math.round((courseProgressCount / SubsectionLength) * 100 * multiplier) / multiplier
+            }
+        }
 
         // VALIDATION
         if(!userDetails){

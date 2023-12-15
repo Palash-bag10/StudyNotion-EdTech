@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { markLectureAsComplete } from '../../../services/operation/courseDetailsAPI';
 import { updateCompletedLectures } from '../../../slices/viewCourseSlice';
+import { Player } from 'video-react';
+import 'video-react/dist/video-react.css';
+import {FaPlayCircle} from "react-icons/fa"
+import IconButton from '../../common/IconButton';
 
 const VideoDetais = () => {
 
@@ -133,8 +137,74 @@ const VideoDetais = () => {
   }
 
   return (
-    <div>
-      
+    <div className="flex flex-col gap-5 text-white">
+      {!videoData 
+      ? ( <div>No Data Found</div> )
+      : (
+          <Player
+          ref={playerRef}
+          aspectRatio="16:9"
+          playsInline
+          onEnded={() => setVideoEnded(true)}
+          src={videoData?.videoUrl}
+          >
+            <FaPlayCircle
+            position="center" />
+
+            {videoEnded && (
+              <div
+              style={{
+                backgroundImage:
+                  "linear-gradient(to top, rgb(0, 0, 0), rgba(0,0,0,0.7), rgba(0,0,0,0.5), rgba(0,0,0,0.1)",
+              }}
+              className="full absolute inset-0 z-[100] grid h-full place-content-center font-inter"
+              >
+                {!completedLectures.includes(subSectionId) && (
+                  <IconButton
+                  disabled={loading}
+                  onclick={() => handleLectureCompletion()}
+                  text={!loading ? "Mark As Completed" : "Loading..."}
+                  customClasses="text-xl max-w-max px-4 mx-auto" />
+                )}
+
+                <IconButton
+                disabled={loading}
+                onclick={() => {
+                  if(playerRef?.current) {
+                    playerRef.current?.seek(0);
+                    setVideoEnded(false)
+                  }
+                }}
+                text="ReWatch"
+                customClasses="text-xl max-w-max px-4 mx-auto mt-2" />
+
+                <div className="mt-10 flex min-w-[250px] justify-center gap-x-4 text-xl">
+                  {!isFirstVideo() && (
+                    <button
+                    disabled={loading}
+                    onClick={goToPrevVideo}
+                    className='blackButton'
+                    >
+                      Prev
+                    </button>
+                  )}
+
+                  {!isLastVideo() && (
+                    <button
+                    disabled={loading}
+                    className='blackButton'
+                    onClick={goToNextVideo}
+                    >
+                      Next
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+          </Player>
+      )}
+      <h3 className="mt-4 text-3xl font-semibold"> {videoData?.title} </h3>
+      <p className="pt-2 pb-6"> {videoData?.description} </p>
     </div>
   )
 }

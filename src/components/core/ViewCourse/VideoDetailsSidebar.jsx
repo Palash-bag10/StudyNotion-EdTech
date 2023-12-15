@@ -96,13 +96,13 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
                             <div
                             className={`${videoBarActive === topic._id ? " bg-yellow-200 text-richblack-900" : " bg-richblack-700 text-richblack-25"}`}
                             onClick={() => {
-                                navigate(`/view-course/${courseEntireData?._id}/section/${section?._id}/subSection/${topic?._id}`)
-                                setVideoBarActive(topic?._id)
+                                navigate(`/view-course/${courseEntireData?._id}/section/${section?._id}/sub-section/${topic?._id}`)
+                                setVideoBarActive(topic._id)
                             }}
                             key={index}>
                               <input
                               type='checkbox'
-                              checked={completedLectures.includes(topic._id)}
+                              checked={completedLectures.includes(topic?._id)}
                               onChange={() => {}}
                               />
                               <span>
