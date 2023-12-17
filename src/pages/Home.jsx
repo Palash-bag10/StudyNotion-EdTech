@@ -17,7 +17,7 @@ const Home = () => {
     <div>
 
     {/* SECTION 1 */}
-    <div className=' relative flex flex-col w-11/12 mx-auto max-w-maxContent items-center text-white'>
+    <div className=' relative flex flex-col w-11/12 mx-auto max-w-maxContent items-center justify-between gap-8 text-white'>
         {/* InsTructor Link */}
         <Link to={"/signup"}>
             <div className='rounded__button mt-16 bg-richblack-800 p-1 rounded-full w-fit font-bold text-richblack-200 transition-all duration-200 hover:scale-95 @apply shadow-[0px_-1px_0px_0px_rgba(255,255,255,0.18)_inset]'>
@@ -53,7 +53,7 @@ const Home = () => {
                 muted
                 autoPlay
                 loop>
-                <source src={Banner} />
+                <source src={Banner} type='video/mp4' />
             </video>
         </div> 
 
@@ -126,9 +126,9 @@ const Home = () => {
     <div className='homepage__bgimage h-[320px]'>
 
         <div className=' w-11/12 max-w-maxContent flex flex-col items-center justify-center gap-6 mx-auto'>
-        <div className='h-[150px]'></div>
+        <div className='lg:h-[150px]'></div>
             {/* Buttons */}
-            <div className='flex flex-row gap-6 pt-8 text-white'>
+            <div className='flex flex-row gap-6 pt-8 text-white lg:mt-8'>
                 <CTAButton active={true} linkto={"/signup"}>
                     <div className='flex items-center gap-2'>
                         Explore Full Catalog
@@ -145,13 +145,13 @@ const Home = () => {
 
     {/* PART 2 */}
     <div className=' w-11/12 max-w-maxContent flex flex-col justify-between items-center gap-[52px] mx-auto py-[90px]'>
-        <div className=' flex flex-row gap-5'>
+        <div className=' mb-10 mt-[-100px] flex flex-col lg:flex-row justify-between gap-5 lg:mt-14 lg:gap-0'>
 
             <div className='font-inter font-semibold text-4xl w-[45%] '>
             Get the skills you need for a <HighlightText text={"job that is in demand."}/>
             </div>
 
-            <div className=' flex flex-col gap-10 items-start w-[40%]'>
+            <div className=' flex flex-col gap-10 items-start lg:w-[40%]'>
                 <div className=' text-[16px]'>The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist requires more than professional skills.</div>
                 
                 <CTAButton active={true} linkto={"/signup"}>Learn More</CTAButton>
@@ -171,18 +171,18 @@ const Home = () => {
 
 
     {/* SECTION 3 */}
-    <div className=' w-11/12 max-w-maxContent mx-auto flex flex-col justify-between items-center gap-8 bg-richblack-900 text-white my-20 '>
+    <div className=' relative flex flex-col text-white w-11/12  justify-center items-center gap-8'>
 
         <InstructorSection/>
 
         <h2 className=' text-center text-4xl font-semibold mt-10'>Review from other learners</h2>
         {/* REVIEW SLIDER */}
+        <div className='relative w-11/12 max-w-maxContent justify-center items-center '>
         <ReviewSlider />
+        </div>
     </div>
 
-
     {/* SECTION 4 footer */}
-        {/* PENDING */}
         <Footer/>
       
     </div>
