@@ -85,7 +85,7 @@ const VideoDetais = () => {
     // check any lecture exist on same section or not
     if(currentSubSectionIndex !==  noOfSubSections - 1){
       // go to next video on same section
-      const nextSubSectionId = courseSectionData[currentSectionIndex].subSection[currentSectionIndex + 1]._id;
+      const nextSubSectionId = courseSectionData[currentSectionIndex].subSection[currentSubSectionIndex + 1]._id;
       // go to next video
       navigate(`/view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSectionId}`)
     } else {
@@ -100,14 +100,14 @@ const VideoDetais = () => {
   const goToPrevVideo = () => {
     const currentSectionIndex = courseSectionData.findIndex((data) => data._id === sectionId)
 
-    const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
+    // const noOfSubSections = courseSectionData[currentSectionIndex].subSection.length;
 
     const currentSubSectionIndex = courseSectionData[currentSectionIndex].subSection.findIndex((data) => data._id === subSectionId)
 
     // check if current video is not first video
     if(currentSubSectionIndex !== 0){
       // same section prev video
-      const prevSubSectionId = courseSectionData[currentSectionIndex].subSection[currentSubSectionIndex - 1];
+      const prevSubSectionId = courseSectionData[currentSectionIndex].subSection[currentSubSectionIndex - 1]._id;
       // go to the video
       navigate(`/view-course/${courseId}/section/${sectionId}/sub-section/${prevSubSectionId}`)
     } else {
