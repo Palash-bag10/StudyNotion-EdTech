@@ -81,9 +81,9 @@ export async function getInstructorData(token){
         })
         console.log("GET_INSTRUCTOR_DATA_API RESPONSE...", response)
 
-        if(!response.data.success){
-            throw new Error(response.data.message)
-        }
+        // if(!response.data.success){
+        //     throw new Error(response.data.message)
+        // }
 
         result = response?.data?.courses
     } catch(error){

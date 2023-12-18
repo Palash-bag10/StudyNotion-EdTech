@@ -34,7 +34,7 @@ const Instructor = () => {
 
   return (
     <div>
-      
+      Hello
     </div>
   )
 }
