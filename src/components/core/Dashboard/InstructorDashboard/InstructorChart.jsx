@@ -40,9 +40,33 @@ const InstructorChart = ({courses}) => {
         ]
     }
 
+    // create options
+    const options = {
+        maintainAspectRatio: false,
+    }
+
   return (
     <div>
-      
+      <p>Visualise</p>
+      <div>
+        <button
+        onClick={() => setCurrChart("students")}
+        >
+            Student
+        </button>
+
+        <button
+        onClick={() => setCurrChart("income")}
+        >
+            Income
+        </button>
+      </div>
+      <div>
+        <Pie 
+          data={currChart === "students" ? chartDataForStudents : chartDataForIncome}
+          options={options}
+        />
+      </div>
     </div>
   )
 }
