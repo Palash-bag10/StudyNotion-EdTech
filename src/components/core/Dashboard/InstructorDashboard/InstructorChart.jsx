@@ -24,7 +24,18 @@ const InstructorChart = ({courses}) => {
         datasets: [
             {
                 data: courses.map((course) => course.totalStudentsEnrolled),
-                backgroundColors: getRandomColors(courses.length),
+                backgroundColor: getRandomColors(courses.length),
+            }
+        ]
+    }
+
+    // Data for the chart displaying income information
+    const chartDataForIncome = {
+        labels: courses.map((course) => course.courseName),
+        datasets: [
+            {
+                data: courses.map((course) => course.totalAmountGenarated),
+                backgroundColor: getRandomColors(courses.length),
             }
         ]
     }
