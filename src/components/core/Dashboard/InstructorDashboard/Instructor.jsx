@@ -32,8 +32,15 @@ const Instructor = () => {
 
     },[])
 
+    // Calculate TotalAmount
+    const totalAmount = instructorData?.reduce((acc, curr) => acc + curr.totalAmountGenarated, 0)
+
+    // Calculate TotalEnrolledStudents
+    const totalStudents = instructorData?.reduce((acc, curr) => acc + curr.totalStudentsEnrolled, 0);
+    
+
   return (
-    <div>
+    <div className=' text-white'>
       Hello
     </div>
   )
