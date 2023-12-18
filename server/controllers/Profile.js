@@ -266,3 +266,37 @@ exports.getEnrolledCourse = async (req, res) => {
           })
     }
 }
+
+// INSTRUCTOR DASHBOARD
+exports.instructorDashboard = async(req, res) => {
+    try{
+        const courseDetails = await Course.find({
+            instructor: req.user.id
+        })
+
+        const courseData = courseDetails.map((course) => {
+            const totalStudentsEnrolled = course.studentEnrolled.length
+            const totalAmountGenarated = totalStudentsEnrolled * course.price
+
+            // create a new object with additional fields
+            const courseDataWithStats = {
+                _id: course._id,
+                courseName: course.courseName,
+                courseDescription: course.courseDescription,
+                totalStudentsEnrolled,
+                totalAmountGenarated,
+            }
+            return courseDataWithStats
+        })
+
+        // return response
+        res.status(200).json({
+            courses: courseData
+        })
+    } catch(error){
+        console.error(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+}
