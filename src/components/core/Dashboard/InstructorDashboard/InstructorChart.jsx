@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
+import {Chart, registerables} from "chart.js"
+import {Pie} from "react-chartjs-2"
 
-const InstructorChart = () => {
+Chart.register(...registerables)
+
+const InstructorChart = ({courses}) => {
 
     const [currChart, setCurrChart] = useState("students")
 
@@ -12,6 +16,17 @@ const InstructorChart = () => {
             colors.push(color)
         }
         return colors;
+    }
+
+    // Create data for displaying student info
+    const chartDataForStudents = {
+        labels: courses.map((course) => course.courseName),
+        datasets: [
+            {
+                data: courses.map((course) => course.totalStudentsEnrolled),
+                backgroundColors: getRandomColors(courses.length),
+            }
+        ]
     }
 
   return (
