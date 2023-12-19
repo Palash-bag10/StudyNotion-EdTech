@@ -53,9 +53,19 @@ const Instructor = () => {
       : courses.length > 0
         ? (
             <div>
-             <div>
+             <div className="my-4 flex h-[450px] space-x-4">
+              {totalAmount > 0 || totalStudents > 0 
+              ? (<InstructorChart courses={instructorData} />)
+              : (
+                <div>
+                  <p>Visualize</p>
+                  <p>
+                    not Enough Data to Visualize
+                  </p>
+                </div>
+              )}
               <div>
-                <InstructorChart courses={instructorData} />
+                {/* <InstructorChart courses={instructorData} /> */}
                 <div>
                     <p>Statistics</p>
                     <div>
