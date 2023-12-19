@@ -53,13 +53,13 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
             tags.map((tag, index) => (
                 <div
                 key={index}
-                className=' flex items-center rounded-full bg-yellow-400 px-2 py-2 text-sm text-richblack-5'
+                className='m-1 flex items-center rounded-full bg-yellow-400 px-2 py-2 text-sm text-richblack-5'
                 >
                     {tag}
                     <button
                     type="button"
                     onClick={() => handleDeleteTag(index)}
-                    className=' ml-2 '
+                    className=' ml-2 focus:outline-none'
                     >
                         <MdClose className=' text-sm'/>
                     </button>

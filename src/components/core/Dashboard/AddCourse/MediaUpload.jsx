@@ -56,13 +56,14 @@ const MediaUpload = ({
     
 
   return (
-    <div>
-      <label htmlFor={name}> {lable}{!viewData && <sup className=' text-pink-300'>*</sup>} </label>
+    <div className="flex flex-col space-y-2">
+      <label 
+      className="text-sm text-richblack-5"
+      htmlFor={name}> {lable}{!viewData && <sup className=' text-pink-300'>*</sup>} </label>
 
       <div className={`${isDragActive ? "bg-richblack-600" : " bg-richblack-700"} flex items-center justify-center border-dotted rounded-lg min-h-[250px] cursor-pointer border-2 border-richblack-500`}>
         {previewSource ?
-          (
-              <div>
+          (<div className="flex w-full flex-col p-6">
                 {!video 
                 ? (
                   <img
@@ -83,20 +84,23 @@ const MediaUpload = ({
                       setSelectedFile(null)
                       setValue(name, null)
                     }}
+                    className="mt-3 text-richblack-400 underline"
                     >Cancel</button>
                   )
                 }
               </div>
           ) : ( 
-            <div {...getRootProps()}>
+            <div 
+            className="flex w-full flex-col items-center p-6"
+            {...getRootProps()}>
               <input {...getInputProps()} ref={inputRef}/>
-              <div>
-                <FiUpload/>
+              <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
+                <FiUpload className="text-2xl text-yellow-50"/>
               </div>
-              <p>
-                Drag and drop an {!video ? "Image" : "Video"}, or <span className=' text-yellow-200'>Browse</span>  Max 6MB each (12MB for videos)
+              <p className="mt-2 max-w-[200px] text-center text-sm text-richblack-200">
+                Drag and drop an {!video ? "Image" : "Video"}, or <span className='font-semibold text-yellow-200'>Browse</span>  Max 6MB each (12MB for videos)
               </p>
-              <ul>
+              <ul className="mt-10 flex list-disc justify-between space-x-12 text-center  text-xs text-richblack-200">
                 <li>Aspect ratio 16:9</li>
                 <li>Recommended size 1024x576</li>
               </ul>
@@ -105,7 +109,7 @@ const MediaUpload = ({
       </div>
 
       {errors[name] && (
-        <span> {lable} is Required </span>
+        <span className="ml-2 text-xs tracking-wide text-pink-200"> {lable} is Required </span>
       )}
     </div>
   )

@@ -36,46 +36,47 @@ const RequirementField = ({name, lable, register, setValue, getValues, errors}) 
     }
 
   return (
-    <div>
-      
-        <label htmlFor={name}>{lable}</label>
-        <div>
+    <div className="flex flex-col space-y-2">
+        <label 
+        className="text-sm text-richblack-5"
+        htmlFor={name}>{lable}</label>
+        <div className="flex flex-col items-start space-y-2">
             <input 
                 type="text" 
                 id={name}
                 onChange={(e) => setRequirement(e.target.value)}
                 value={requirement}
+                className="form-style w-full"
             />
             <button
             type='button'
-            onClick={handleAddRequirement}>
+            onClick={handleAddRequirement}
+            className="font-semibold text-yellow-50">
                 Add
             </button>
         </div>
 
-        {
-            requirementList.length > 0 && (
-                <ul>
-                    {
-                        requirementList.map((requirement, index) => (
-                            <li 
-                            key={index}>
-                                <span>{requirement}</span>
-                                <button
-                                type='button'
-                                onClick={() => handleRemoveRequirement(index)}>
-                                    Clear
-                                </button>
-                            </li>
-                        ))
-                    }
-                </ul>
-            )
-        }
+        {requirementList.length > 0 && (
+            <ul className="mt-2 list-inside list-disc">
+                {requirementList.map((requirement, index) => (
+                    <li 
+                    className="flex items-center text-richblack-5"
+                    key={index}>
+                      <span>{requirement}</span>
+                      <button
+                      type='button'
+                      className="ml-2 text-xs text-pure-greys-300 "
+                      onClick={() => handleRemoveRequirement(index)}>
+                        Clear
+                      </button>
+                    </li>
+                    ))}
+            </ul>
+        )}
 
         {
             errors[name] && (
-                <span>{lable} is Required</span>
+                <span className="ml-2 text-xs tracking-wide text-pink-200">{lable} is Required</span>
             )
         }
     </div>

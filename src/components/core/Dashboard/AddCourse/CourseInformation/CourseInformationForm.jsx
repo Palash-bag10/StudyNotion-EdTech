@@ -155,66 +155,78 @@ const CourseInformationForm = () => {
     >
 
       {/* Course Title */}
-      <div>
-        <label htmlFor='courseTitle'>Course Title <sup className=' text-pink-300'>*</sup></label>
+      <div className="flex flex-col space-y-2">
+        <label 
+        htmlFor='courseTitle'
+        className="text-sm text-richblack-5">Course Title <sup className=' text-pink-300'>*</sup></label>
         <input
          id='courseTitle'
          placeholder='Enter Course Title'
          {...register("courseTitle", {required:true})}
-         className=' w-full'
+         className='form-style w-full'
         />
         {
           errors.courseTitle && (
-            <span>Course Title is Required</span>
+            <span className="ml-2 text-xs tracking-wide text-pink-200">Course Title is Required</span>
           )
         }
       </div>
 
       {/* Course Description */}
-      <div>
-        <label htmlFor='courseShortDesc'>Course Short Description <sup className=' text-pink-300'>*</sup></label>
+      <div className="flex flex-col space-y-2">
+        <label 
+        className="text-sm text-richblack-5"
+        htmlFor='courseShortDesc'>Course Short Description <sup className=' text-pink-300'>*</sup></label>
         <textarea
          id='courseShortDesc'
          placeholder='Enter Course Description'
          {...register("courseShortDesc", {required:true})}
-         className='min-h-[140px] w-full'
+         className='form-style resize-x-none min-h-[140px] w-full'
         />
         {
           errors.courseShortDesc && (
-            <span>Course Description is Required</span>
+            <span className="ml-2 text-xs tracking-wide text-pink-200">Course Description is Required</span>
           )
         }
       </div>
 
       {/* Course Price */}
-      <div>
-        <label htmlFor='coursePrice'>Course Price<sup className=' text-pink-300'>*</sup></label>
-        <div>
+      <div className="flex flex-col space-y-2">
+        <label 
+        className="text-sm text-richblack-5"
+        htmlFor='coursePrice'>Course Price<sup className=' text-pink-300'>*</sup></label>
+        <div className='relative flex'>
           <input
           id='coursePrice'
           placeholder='Enter Course Price'
           {...register("coursePrice", {
             required:true,
             valueAsNumber:true,
+            pattern: {
+                value: /^(0|[1-9]\d*)(\.\d+)?$/,
+              },
             })}
-          className=' w-full'
+          className='form-style w-full !pl-12'
           />
-          <HiOutlineCurrencyRupee className=' text-pink-200'/>
+          <HiOutlineCurrencyRupee className="absolute left-[1rem] top-1/3 inline-block  text-2xl text-richblack-400"/>
         </div>
         {
           errors.coursePrice && (
-            <span>Course Price is Required</span>
+            <span className="ml-2 text-xs tracking-wide text-pink-200">Course Price is Required</span>
           )
         }
       </div>
 
       {/* Course Category */}
-      <div>
-        <label htmlFor="courseCategory">Course Category<sup className=' text-pink-300'>*</sup></label>
+      <div className="flex flex-col space-y-2">
+        <label 
+        className="text-sm text-richblack-5"
+        htmlFor="courseCategory">Course Category<sup className=' text-pink-300'>*</sup></label>
         <select
          id="courseCategory"
          defaultValue=""
          {...register("courseCategory", {required:true})}
+         className="form-style w-full"
          >
             <option
              value=""
@@ -235,7 +247,7 @@ const CourseInformationForm = () => {
          </select>
          {
           errors.courseCategory && (
-            <span>Course Category is Required</span>
+            <span className="ml-2 text-xs tracking-wide text-pink-200">Course Category is Required</span>
           )
          }
       </div>
@@ -262,17 +274,19 @@ const CourseInformationForm = () => {
       />
 
       {/* Benefits of the Course */}
-      <div>
-        <label htmlFor="courseBenefits">Benefits of the Course<sup className=' text-pink-300'>*</sup></label>
+      <div className="flex flex-col space-y-2">
+        <label 
+        className="text-sm text-richblack-5"
+        htmlFor="courseBenefits">Benefits of the Course<sup className=' text-pink-300'>*</sup></label>
         <textarea
          id="courseBenefits"
          placeholder='Enter Benefits Of the course'
          {...register("courseBenefits", {require: true})}
-         className='min-h-[140px] w-full'
+         className="form-style resize-x-none min-h-[130px] w-full"
          />
          {
           errors.courseBenefits && (
-            <span>Benefits of the course are required</span>
+            <span className="ml-2 text-xs tracking-wide text-pink-200">Benefits of the course are required</span>
           )
          }
       </div>
@@ -287,12 +301,13 @@ const CourseInformationForm = () => {
         errors={errors}
       />
 
-      <div>
+      <div className="flex justify-end gap-x-2">
         {
           editCourse && (
             <button
             onClick={() => dispatch(setStep(2))}
             disabled={loading}
+            className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900`}
             >
               Continue Without Saving
             </button>
