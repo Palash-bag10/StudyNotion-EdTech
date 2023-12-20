@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -18,7 +18,7 @@ import Settings from "./components/core/Dashboard/Settings";
 import EnrollCourses from "./components/core/Dashboard/EnrollCourse/EnrollCourses";
 import Cart from "./components/core/Dashboard/Cart";
 import { ACCOUNT_TYPE } from "./utils/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddCourse from "./components/core/Dashboard/AddCourse";
 import MyCourses from "./components/core/Dashboard/MyCourses";
 import EditCourse from "./components/core/Dashboard/EditCourse";
@@ -27,10 +27,21 @@ import CourseDetails from "./pages/CourseDetails";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetais from "./components/core/ViewCourse/VideoDetais";
 import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
+import { useEffect } from "react";
+import { getUserDetails } from "./services/operation/ProfileAPI";
 
 function App() {
 
   const {user} = useSelector((state) => state.profile)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(localStorage.getItem("token")) {
+      const token = JSON.parse(localStorage.getItem("token"))
+      dispatch(getUserDetails(token, navigate))
+    }
+  },[])
 
   return (
     // THIS IS OUR TOP LEVEL DIV
