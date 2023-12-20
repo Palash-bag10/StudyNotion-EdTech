@@ -100,7 +100,7 @@ const Navbar = () => {
                   }`}>
                   <p> {link?.title} </p>
                     <BsFillCaretDownFill/>
-                    <div className=' invisible absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[50%] flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 z-50 transition-all duration-200 group-hover:visible group-hover:opacity-100 w-[300px]   '>
+                    <div className=' invisible absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[20%] flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 z-50 transition-all duration-200 group-hover:visible group-hover:opacity-100 w-[300px]   '>
                       <div className=' absolute left-[50%] top-0 translate-x-[80%] translate-y-[-20%] h-6 w-6 rotate-45 rounded bg-richblack-5  '></div>
                         {loading ? (
                           <p className=' text-center'>Loading...</p>
@@ -120,22 +120,6 @@ const Navbar = () => {
                             ))}
                           </>
                         ) : ( <p className='text-center'>No Courses Found</p> )}
-                                        {/* {
-                                          subLinks.length
-                                          ? (
-                                              
-                                                subLinks.map((sublink, index) => {
-                                                  return (
-                                                    <Link to={`${sublink.link}`} key={index}>
-                                                      <p> {sublink.title} </p>
-                                                    </Link>
-                                                  )
-                                                })
-                                              
-                                            ) 
-                                          : ( <div></div> )
-                                        } */}
-
                     </div>
                   </div>
                   </>) 
