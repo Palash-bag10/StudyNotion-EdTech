@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import IconButton from '../../../common/IconButton';
 import { updateProfile } from '../../../../services/operation/SettingAPI';
 
-const EditProfile = () => {
+const genders = ["Male", "Female", "Prefer not to say", "Other"]
 
-    const genders = ["Male", "Female", "Prefer not to say", "Other"]
+const EditProfile = () => {
 
     const {user} = useSelector((state) => state.profile);
     const {token} = useSelector((state) => state.auth);
