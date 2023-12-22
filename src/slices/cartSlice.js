@@ -60,7 +60,7 @@ const cartSlice = createSlice({
 
                 // Update LocalStorage
                 localStorage.setItem("cart", JSON.stringify(state.cart))
-                localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice))
+                localStorage.setItem("total", JSON.stringify(state.totalPrice))
                 localStorage.setItem("totalItems", JSON.stringify(state.totalItems))
 
                 // Show Toast
