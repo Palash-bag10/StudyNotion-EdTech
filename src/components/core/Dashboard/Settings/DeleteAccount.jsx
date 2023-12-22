@@ -20,14 +20,14 @@ const DeleteAccount = () => {
 
   return (
     <div>
-      <div className=' flex flex-row border-[1px] border-pink-700 bg-pink-900 rounded-md'>
+      <div className=' my-10 p-8 px-12 gap-x-5 flex flex-row border-[1px] border-pink-700 bg-pink-900 rounded-md'>
         <div className=' h-14 w-14 aspect-square flex items-center justify-center bg-pink-700 rounded-full '>
             <FiTrash2 className=' text-3xl text-pink-200' />
         </div>
 
-        <div className=' flex flex-col gap-y-2'>
+        <div className=' flex flex-col space-y-2'>
             <h3 className=' text-lg font-bold text-pink-5'>Delete Account</h3>
-            <div className=' w-3/5 text-sm font-medium text-pink-25'>
+            <div className=' w-3/5 text-pink-25'>
                 <p>Would you like to delete account?</p>
                 <p>This account contains Paid Courses. Deleting your account will remove all the contain associated with it.</p>
             </div>
@@ -35,7 +35,7 @@ const DeleteAccount = () => {
             <button
                 type='button'
                 onClick={deleteAccountHandler}
-                className=' italic text-base font-medium text-pink-200'
+                className=' bg-pink-700 p-4 rounded-lg italic w-fit text-pink-100'
             >
                 I want to delete my account.
             </button>
