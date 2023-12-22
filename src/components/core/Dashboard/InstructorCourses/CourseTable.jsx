@@ -142,7 +142,7 @@ const CourseTable = ({courses, setCourses}) => {
             }
         </Tbody>
     </Table>
-    {confirmationModal && <ConfirmationModal modaldata={confirmationModal} />}
+    {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
     </>
   )
 }
