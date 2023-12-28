@@ -6,7 +6,7 @@ const initialState = {
     cart: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
     : [],
-    totalPrice: localStorage.getItem("total")
+    total: localStorage.getItem("total")
     ? JSON.parse(localStorage.getItem("total"))
     : 0,
     totalItems : localStorage.getItem("totalItems") 
@@ -37,11 +37,11 @@ const cartSlice = createSlice({
             state.cart.push(course);
             // update the total quantities and price
             state.totalItems++;
-            state.totalPrice += course.price;
+            state.total += course.price;
 
             // update the localStorage
             localStorage.setItem("cart", JSON.stringify(state.cart))
-            localStorage.setItem("total", JSON.stringify(state.totalPrice))
+            localStorage.setItem("total", JSON.stringify(state.total))
             localStorage.setItem("totalItems", JSON.stringify(state.totalItems))
             // Show Toast
             toast.success("Course Added to the Cart")
@@ -55,12 +55,12 @@ const cartSlice = createSlice({
             // If Course is in the cart then remove it
             if(index >= 0){
                 state.totalItems--;
-                state.totalPrice -= state.cart[index].price;
+                state.total -= state.cart[index].price;
                 state.cart.splice(index, 1)
 
                 // Update LocalStorage
                 localStorage.setItem("cart", JSON.stringify(state.cart))
-                localStorage.setItem("total", JSON.stringify(state.totalPrice))
+                localStorage.setItem("total", JSON.stringify(state.total))
                 localStorage.setItem("totalItems", JSON.stringify(state.totalItems))
 
                 // Show Toast
@@ -71,13 +71,13 @@ const cartSlice = createSlice({
         // RESET CART
         resetCart: (state) => {
             state.cart = []
+            state.total = 0
             state.totalItems = 0
-            state.totalPrice = 0
 
             // Update LocalStorage
             localStorage.removeItem("cart")
+            localStorage.removeItem("total")
             localStorage.removeItem("totalItems")
-            localStorage.removeItem("totalPrice")
         }
     },
 });

@@ -26,7 +26,7 @@ function loadScript(src) {
     })
 }
 
-export async function buyCourse(token, courses, userDetails, navigate, dispatch) {
+export async function buyCourse(token, courses, user_details, navigate, dispatch) {
     const toastId = toast.loading("Loading...");
     try{
         // Load the script
@@ -62,8 +62,8 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
             description: "Thank You for Purchasing the Course",
             image: rzpLogo,
             prefill: {
-                name: `${userDetails.firstName}`,
-                email: userDetails.email
+                name: `${user_details.firstName}`,
+                email: user_details.email
             },
             handler: function (response) {
                 // send successful mail
@@ -102,7 +102,7 @@ async function sendPaymentSuccessEmail (response, amount, token) {
     }
 }
 
-async function verifyPayment (bodyData, token, dispatch, navigate) {
+async function verifyPayment (bodyData, token, navigate, dispatch) {
     const toastId = toast.loading("Verifying Payment...");
     dispatch(setPaymentLoading(true));
     try{

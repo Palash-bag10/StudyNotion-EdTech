@@ -4,7 +4,7 @@ import RenderTotalAmount from "./RenderTotalAmount"
 
 export default function Cart() {
 
-    const {totalPrice, totalItems} = useSelector((state) => state.cart)
+    const {total, totalItems} = useSelector((state) => state.cart)
     const {paymentLoading} = useSelector((state) => state.course)
 
     if(paymentLoading)
@@ -19,7 +19,7 @@ export default function Cart() {
             <h2 className="mb-14 text-3xl font-medium text-richblack-5">Your Cart</h2>
             <p className="border-b border-b-richblack-400 pb-2 font-semibold text-richblack-400">{totalItems} Courses in Cart</p>
 
-            {totalPrice > 0
+            {total > 0
             ? (<div className="mt-8 flex flex-col-reverse       items-start gap-x-10 gap-y-6 lg:flex-row">
                 <RenderCartCourses/>
                 <RenderTotalAmount/>
