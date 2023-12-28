@@ -2,9 +2,9 @@ import copy from 'copy-to-clipboard';
 import React from 'react'
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ACCOUNT_TYPE } from '../../../utils/constants';
-import { addToCart } from '../../../slices/cartSlice';
+import { addToCart, removeFromCart } from '../../../slices/cartSlice';
 import {BsFillCaretRightFill} from "react-icons/bs"
 import {FaShareSquare} from "react-icons/fa"
 
@@ -12,17 +12,20 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
 
   const {user} = useSelector((state) => state.profile)
   const {token} = useSelector((state) => state.auth)
+  const {cart} = useSelector((state) => state.cart)
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {courseId} = useParams()
 
   const {
     thumbnail: ThumbnailImage,
     price: CurrentPrice,
+    _id,
   } = course;
 
   const handleAddToCart = () => {
     if(user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR){
-      toast.error("You are an Instructor, you cant buy a course")
+      toast.error("You are an Instructor, you can't buy a course")
       return
     }
     if(token){
@@ -44,6 +47,18 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
     toast.success("Link Copy to Clipboard")
   }
 
+  let flag = false;
+  const cartCheck = (arr) => {
+    let x = 0;
+    while(x<arr.length){
+      if(arr[x]._id === courseId){
+        return true;
+      }
+      x++;
+    }
+    return false;
+  }
+
   return (
     <div className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}>
       <img
@@ -59,11 +74,25 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
             >
               { user && course?.studentEnrolled.includes(user?._id) ? "Go To Course" : "Buy Now"}
             </button>
-            {(!user || !course?.studentEnrolled.includes(user?._id)) && (<button 
-            onClick={handleAddToCart}
-            >
-              Add To Cart
-            </button>
+            {(!user || !course?.studentEnrolled.includes(user?._id)) && (
+              <div>
+                { cartCheck(cart) ? 
+                ( <div
+                  onClick={() => {dispatch(removeFromCart(courseId))}}
+                  className='redButton text-center'
+                >
+                  Remove From Cart
+                </div> ) : (
+                <div 
+                onClick={handleAddToCart}
+                className='blackButton text-center'
+                >
+                  Add To Cart
+                </div>
+                )
+                }
+              </div>
+            
             )}
           </div>
           <div>

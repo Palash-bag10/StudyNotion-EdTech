@@ -104,3 +104,6 @@
  .blackButton {
    @apply cursor-pointer rounded-md bg-richblack-800 px-[20px] py-[8px] font-semibold text-richblack-5;
  }
+ .redButton {
+   @apply cursor-pointer rounded-md bg-pink-200 px-[20px] py-[8px] font-semibold text-richblack-5;
+ }
