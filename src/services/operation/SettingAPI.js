@@ -52,10 +52,10 @@ export function updateProfile(token, formData){
                 throw new Error(response.data.message);
             }
 
-            const userImage = response.data.updateUserDetails.image 
-            ? response.data.updateUserDetails.image
-            : `https://api.dicebear.com/6.x/initials/svg?seed=${response.data.updateUserDetails.firstName} ${response.data.updateUserDetails.lastName}`
-            dispatch(setUser({...response.data.updateUserDetails, image: userImage }))
+            const userImage = response.data.updatedUserDetails.image 
+            ? response.data.updatedUserDetails.image
+            : `https://api.dicebear.com/6.x/initials/svg?seed=${response.data.updatedUserDetails.firstName} ${response.data.updatedUserDetails.lastName}`
+            dispatch(setUser({...response.data.updatedUserDetails, image: userImage }))
     
             toast.success("Profile Update Successfully");
     
