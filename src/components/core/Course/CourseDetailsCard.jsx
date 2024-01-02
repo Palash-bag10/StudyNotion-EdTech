@@ -121,49 +121,6 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
             </button>
           </div>
         </div>
-
-
-
-
-       {/* <div> Rs. {CurrentPrice} </div>
-
-       <div>
-        <button
-        onClick={user && course?.studentsEnrolled.includes(user?._id) ? () => navigate("/dashboard/enrolled-courses") : handleBuyCourse}
-        >
-          { user && course?.studentsEnrolled.includes(user?._id) ? "Go To Course" : "Buy Now"}
-        </button>
-
-        {
-          (!course?.studentsEnrolled.includes(user?._id)) && (
-            <button 
-            onClick={handleAddToCart}
-            >
-              Add To Cart
-            </button>
-          )
-        }
-       </div>
-       <div>
-         <p>30-Day Money-Back Guarantee</p>
-         <p>This Course Includes: </p>
-         <div className=' flex flex-col gap-y-3'>
-          {
-            course?.instructions?.map((item, index) => (
-              <p key={index} className=' flex gap-2'>
-                <span>{item}</span>
-              </p>
-            ))
-          }
-         </div>
-       </div>
-       <div>
-        <button
-        onClick={handleShare}
-        >
-          Share
-        </button>
-       </div> */}
     </div>
   )
 }
