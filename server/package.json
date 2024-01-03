@@ -8,7 +8,7 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "Palash Bag",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
