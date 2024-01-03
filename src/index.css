@@ -1,7 +1,7 @@
 .highlight__text{
     background: var(--gradient-05, linear-gradient(138deg, #1FA2FF 0%, #12D8FA 50%, #A6FFCB 100%));
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
