@@ -17,7 +17,7 @@ const CourseDetails = () => {
     const {token} = useSelector((state) => state.auth)
     const {user} = useSelector((state) => state.profile)
     const {loading} = useSelector((state) => state.profile)
-    const {paymentLoading} = useSelector((state) => state.course)
+    // const {paymentLoading} = useSelector((state) => state.course)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {courseId} = useParams()
@@ -60,7 +60,7 @@ const CourseDetails = () => {
       setIsActive(
         !isActive.includes(id)
         ? isActive.concat(id)
-        : isActive.filter((e) => e != id)
+        : isActive.filter((e) => e !== id)
       )
     }
     
@@ -223,65 +223,6 @@ const CourseDetails = () => {
       </div>
       <Footer/>
       {confirmationModal && <ConfirmationModal modalData={confirmationModal}/> }
-        
-
-
-      {/* <div className=' flex flex-col items-center justify-center text-white'>
-      <div className='relative'>
-        <p> {courseName} </p>
-        <p> {courseDescription} </p>
-        <div className='flex gap-x-2'>
-          <span>{avgReviewCount} </span>
-          <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
-          <span> {`(${ratingAndReviews.length} reviews)`} </span>
-          <span> {`(${studentsEnrolled.length} students)`} </span>
-        </div>
-
-        <div>
-          <p>Created By: {`${instructor.firstName}`}</p>
-        </div>
-
-        <div className=' flex gap-x-2'>
-          <p>Created At {formatDate(createdAt)} </p>
-          <p> {" "} English </p>
-        </div>
-
-        <div>
-          <CourseDetailsCard 
-            course = {courseData?.data?.courseDetails}
-            setConfirmationModal = {setConfirmationModal}
-            handleBuyCourse = {handleBuyCourse}
-          />
-        </div>
-      </div>
-
-      <div>
-        <p>What You WIll learn</p>
-        <div> {whatYouWillLearn} </div>
-      </div>
-
-      <div>
-        <div>
-          <p>Coure Content</p>
-        </div>
-        
-        <div className=' flex gap-x-3'>
-          <div>
-            <span> {courseContent.length} section(s)</span>
-            <span>{totalNoOfLectures} lecture(s)</span>
-            <span> {courseData.data?.totalDuration} total length</span>
-          </div>  
-          <div>
-            <button
-            onClick={() => setIsActive([])}
-            >Collaps all Sections</button>
-          </div>
-        </div>
-      </div>
-
-
-      {confirmationModal && <ConfirmationModal modalData={confirmationModal}/> }
-      </div> */}
     </>
   )
 }
