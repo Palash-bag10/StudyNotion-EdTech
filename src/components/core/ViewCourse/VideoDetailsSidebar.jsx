@@ -34,6 +34,7 @@ const VideoDetailsSidebar = ({setReviewModal}) => {
         // set current sub section
         setVideoBarActive(activeSubSectionId)
       })()
+      // eslint-disable-next-line
     }, [courseSectionData, courseEntireData, location.pathname])
 
   return (

@@ -51,6 +51,7 @@ const CourseInformationForm = () => {
     }
 
     getCategories()
+    // eslint-disable-next-line
   }, [])
 
   const isUpdatedForm = () => {

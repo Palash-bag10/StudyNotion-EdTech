@@ -97,6 +97,7 @@ const CourseDetails = () => {
 
     // Fetch course details data
     const {
+      // eslint-disable-next-line
       _id: course_id,
       courseName,
       courseDescription,

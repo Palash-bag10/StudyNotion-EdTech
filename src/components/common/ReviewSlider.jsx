@@ -27,6 +27,7 @@ const ReviewSlider = () => {
             console.log("Printing Reviews", reviews);
         }
         fetchAllReviews();
+        // eslint-disable-next-line
     }, [])
 
   return (

@@ -47,10 +47,12 @@ const MediaUpload = ({
 
     useEffect(() => {
       register(name, {required: true})
+      // eslint-disable-next-line
     },[register])
 
     useEffect(() => {
       setValue(name, selectedFile)
+      // eslint-disable-next-line
     }, [selectedFile, setValue])
 
     

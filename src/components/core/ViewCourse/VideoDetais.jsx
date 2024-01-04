@@ -45,6 +45,7 @@ const VideoDetais = () => {
       }
     }
     setVideoSpacificData();
+    // eslint-disable-next-line
   }, [courseSectionData, courseEntireData, location.pathname])
 
   const isFirstVideo = () => {
