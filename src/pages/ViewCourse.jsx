@@ -27,6 +27,7 @@ const ViewCourse = () => {
             dispatch(setTotalNoOfLectures(lectures));
         }
         getCourseSpacificDetails()
+        // eslint-disable-next-line
     }, [])
 
   return (

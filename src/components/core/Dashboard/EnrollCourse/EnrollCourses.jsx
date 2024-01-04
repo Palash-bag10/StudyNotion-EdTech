@@ -42,7 +42,8 @@ const EnrollCourses = () => {
       } catch (error) {
         console.log("Could not fetch enrolled courses.")
       }
-    })()
+    })();
+    // eslint-disable-next-line
   },[])
 
   return (

@@ -18,10 +18,12 @@ const CourseTags = ({label, name, placeholder, setValue, getValues, register, er
             require: true,
             validate: (value) => value.length > 0
         })
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         setValue(name, tags)
+        // eslint-disable-next-line
     },[tags])
 
     const handleKeyDown = (event) => {

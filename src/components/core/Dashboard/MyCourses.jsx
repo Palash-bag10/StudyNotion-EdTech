@@ -22,6 +22,7 @@ const MyCourses = () => {
             }
         }
         fetchCourses();
+        // eslint-disable-next-line
     },[])
 
   return (

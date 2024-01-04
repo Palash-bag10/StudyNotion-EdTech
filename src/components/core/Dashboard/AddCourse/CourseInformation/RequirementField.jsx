@@ -16,10 +16,12 @@ const RequirementField = ({name, lable, register, setValue, getValues, errors}) 
             require: true,
             validate: (value) => value.length > 0
         })
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         setValue(name, requirementList)
+        // eslint-disable-next-line
     }, [requirementList])
 
     const handleAddRequirement = () => {

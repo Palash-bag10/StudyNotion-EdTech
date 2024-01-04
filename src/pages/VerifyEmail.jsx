@@ -20,6 +20,7 @@ const VerifyEmail = () => {
         if(!signupData){
             navigate("/signup")
         }
+        // eslint-disable-next-line
     }, [])
 
     const handleOnSubmit = (e) => {

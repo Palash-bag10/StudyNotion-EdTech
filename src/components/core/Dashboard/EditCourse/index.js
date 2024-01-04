@@ -26,6 +26,7 @@ export default function EditCourse () {
             setLoading(false)
         }
         populateCourseDetails();
+        // eslint-disable-next-line
     },[])
 
     if(loading) {

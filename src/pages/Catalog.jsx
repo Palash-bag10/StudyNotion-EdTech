@@ -99,6 +99,7 @@ const Catalog = () => {
       <div className="py-8">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {catalogPageData?.data?.mostSellingCourses?.slice(0, 4).map((course, i) => (
+            // eslint-disable-next-line react/jsx-pascal-case
             <Course_Card course={course} key={i} Height={"h-[400px]"} />
           ))}
         </div>

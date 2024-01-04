@@ -20,6 +20,7 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
   const {
     thumbnail: ThumbnailImage,
     price: CurrentPrice,
+    // eslint-disable-next-line
     _id,
   } = course;
 
@@ -46,7 +47,7 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
     copy(window.location.href)
     toast.success("Link Copy to Clipboard")
   }
-
+// eslint-disable-next-line
   let flag = false;
   const cartCheck = (arr) => {
     let x = 0;
@@ -63,7 +64,7 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
     <div className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}>
       <img
        src={ThumbnailImage} 
-       alt="Thumbnail Image"
+       alt="Thumbnail"
        className="max-h-[300px] min-h-[180px] w-[400px] overflow-hidden rounded-2xl object-cover md:max-w-full" />
         <div className="px-4">
           <div className="space-x-3 pb-4 text-3xl font-semibold"> Rs. {CurrentPrice} 

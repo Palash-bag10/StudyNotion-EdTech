@@ -31,7 +31,7 @@ const Instructor = () => {
             setLoading(false)
         }
         getCourseDataWithStats()
-
+        // eslint-disable-next-line
     },[])
 
     // Calculate TotalAmount
