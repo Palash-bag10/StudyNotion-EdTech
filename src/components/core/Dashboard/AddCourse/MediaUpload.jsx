@@ -8,7 +8,7 @@ import "video-react/dist/video-react.css"
 
 const MediaUpload = ({
     name,
-    lable,
+    label,
     setValue,
     register,
     errors,
@@ -41,7 +41,7 @@ const MediaUpload = ({
     }
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({
-      accept: !video ? {"image" : [".jpeg", ".jpg", ".png"]} : {"video" : [".mp4"]},
+      accept: !video ? {"image/*" : [".jpeg", ".jpg", ".png"]} : {"video/*" : [".mp4"]},
       onDrop,
     })
 
@@ -59,7 +59,7 @@ const MediaUpload = ({
     <div className="flex flex-col space-y-2">
       <label 
       className="text-sm text-richblack-5"
-      htmlFor={name}> {lable}{!viewData && <sup className=' text-pink-300'>*</sup>} </label>
+      htmlFor={name}> {label}{!viewData && <sup className=' text-pink-300'>*</sup>} </label>
 
       <div className={`${isDragActive ? "bg-richblack-600" : " bg-richblack-700"} flex items-center justify-center border-dotted rounded-lg min-h-[250px] cursor-pointer border-2 border-richblack-500`}>
         {previewSource ?
@@ -109,7 +109,7 @@ const MediaUpload = ({
       </div>
 
       {errors[name] && (
-        <span className="ml-2 text-xs tracking-wide text-pink-200"> {lable} is Required </span>
+        <span className="ml-2 text-xs tracking-wide text-pink-200"> {label} is Required </span>
       )}
     </div>
   )

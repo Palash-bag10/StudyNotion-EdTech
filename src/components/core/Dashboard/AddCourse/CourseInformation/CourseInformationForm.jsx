@@ -266,7 +266,7 @@ const CourseInformationForm = () => {
       {/* Course Thumbnail */}
       <MediaUpload
         name="courseImage"
-        lable="Course Thumbnail"
+        label="Course Thumbnail"
         setValue={setValue}
         register={register}
         errors={errors}

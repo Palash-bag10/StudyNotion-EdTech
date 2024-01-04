@@ -33,7 +33,7 @@ const ReviewSlider = () => {
     <>
       <div className=" my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent justify-center items-center">
         <Swiper
-        slidesPerView={4}
+        slidesPerView={2}
         spaceBetween={24}
         loop={true}
         freeMode={true}
