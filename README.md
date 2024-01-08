@@ -38,7 +38,7 @@ StudyNotion's groundbreaking EdTech platform leverages the power of the MERN sta
 ## Demo
 
 **Live Website:** [studynotion-edtech-rosy.vercel.app](studynotion-edtech-rosy.vercel.app)
-
+**Note:** Copy the above link and Paste in new tab.
 
 ## Contributing
 
